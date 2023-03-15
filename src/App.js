@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Flights from './Components/flights.js'
 
 function App() {
   return (
@@ -17,11 +18,12 @@ function App() {
         >
           Learn React
         </a>
-
         <p>Test</p>
       </header>
+      <Flights />
     </div>
   );
 }
+
 
 export default App;
