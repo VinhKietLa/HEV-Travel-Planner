@@ -106,17 +106,21 @@ optionsBtn.addEventListener("click", function () {
             const kinds = chosenKind[i].kinds.split(",");
             console.log(kinds);
 
-            for (let j = 0; j < kinds.length; j++) {
-              const subkind = kinds[j];
-              console.log(subkind);
+            // for (let j = 0; j < kinds.length; j++) {
+            //   const subkind = kinds[j];
+            //   console.log(subkind);
 
-              // map through subkinds and create buttons for each
-              const buttonsKinds = kinds.map((subkind) => {
-                return `<button>${subkind}</button>`;
-              });
-              // join the array of button HTML strings into a single string and set it as the innerHTML of subkindDiv
-              catBtns.innerHTML = buttonsKinds.join("");
-            }
+            //   // map through subkinds and create buttons for each
+            //   const buttonsKinds = kinds.map((subkind) => {
+            //     return `<button>${subkind}</button>`;
+            //   });
+            //   // join the array of button HTML strings into a single string and set it as the innerHTML of subkindDiv
+            //   catBtns.innerHTML = buttonsKinds.join("");
+            // }
+
+            // // add event listener on subkind and redner cards
+
+            // subkind.addEventListener("click", function () {});
           }
 
           // if subcategories, render button with the text of each
