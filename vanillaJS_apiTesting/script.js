@@ -1,5 +1,6 @@
 let optionsBtn = document.getElementById("checkMyOptions");
 let chosenKindDiv = document.getElementById("chosen-kind");
+let catBtns = document.getElementById("category-buttons");
 // below user input has to be lat and lon
 // get them to pick a location on google maps from google api and get lat and lon values.
 // open trip map api does not work with city names only as it is not specific enough
@@ -100,14 +101,23 @@ optionsBtn.addEventListener("click", function () {
       fetch(kindsAPI)
         .then((response) => response.json())
         .then((chosenKind) => {
-          const subcategories = [];
-
           // loop through retrieved json and get to kinds array of each place
           for (let i = 0; i < chosenKind.length; i++) {
             const kinds = chosenKind[i].kinds.split(",");
             console.log(kinds);
+
+            for (let j = 0; j < kinds.length; j++) {
+              const subkind = kinds[j];
+              console.log(subkind);
+
+              // map through subkinds and create buttons for each
+              const buttonsKinds = kinds.map((subkind) => {
+                return `<button>${subkind}</button>`;
+              });
+              // join the array of button HTML strings into a single string and set it as the innerHTML of subkindDiv
+              catBtns.innerHTML = buttonsKinds.join("");
+            }
           }
-          console.log(subcategories);
 
           // if subcategories, render button with the text of each
           // check if name already rendered do not re-render the button with the same category
