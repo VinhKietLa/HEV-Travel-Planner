@@ -31,11 +31,32 @@ submitBtn.addEventListener("click", (event) => {
         })
         .join("");
       // This renders the airports as buttons on the page so the user can select where they would prefer to fly from.
-      
+
       const startingAirportsDiv = document.getElementById("startingAirports");
       startingAirportsDiv.innerHTML = airportButtonsHTML;
     });
 });
+
+// This function listens to the generated airport buttons and will return the selected icao code which is needed for the flights api fetch//
+function handleAirportButtonClick(event) {
+  if (event.target.tagName === "BUTTON") {
+    // The user clicked a button
+    const button = event.target;
+    const airportInfo = button.textContent.split(", ");
+    const airportName = airportInfo[0];
+    const airportICAO = airportInfo[1];
+    const airportCountry = airportInfo[2];
+
+    // Do something with the airport information
+    console.log(airportName, airportICAO, airportCountry);
+  }
+}
+
+const startingAirportsDiv = document.getElementById("startingAirports");
+startingAirportsDiv.addEventListener("click", handleAirportButtonClick);
+
+
+
 
 // a date selector to select the departure date as well as the the return date, option for singie trips
 
