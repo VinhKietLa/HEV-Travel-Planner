@@ -4,19 +4,26 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <link rel="stylesheet" type="text/css" href="./index.css" />
-    <script type="module" src="./index.js"></script>
   </head>
   <body>
     <div id="map"></div>
 
     <div>
     <h1>Your Selected Destination</h1>
+    <input type="text" id="pac-input" placeholder="Enter a location">
+
     <h2 id="lat"></h2>
     <h2 id="lng"></h2>
     </div>
+
+    <div><h1>Ready to Fly?</div>
+    <input type="text" placeholder="What city are you flying from?" id="userInput">
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./airportCodes.js"></script>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE&libraries=places&callback=initMap"
       defer
     ></script>
+    <!-- <script src="./flights.js"></script> -->
   </body>
 </html>
