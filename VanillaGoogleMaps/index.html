@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./index.css" />
+    <script type="module" src="./index.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <div>
+    <h1>Your Selected Destination</h1>
+    <h2 id="lat"></h2>
+    <h2 id="lng"></h2>
+    </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE&callback=initMap&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
