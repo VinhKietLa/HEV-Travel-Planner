@@ -1,5 +1,5 @@
 let optionsBtn = document.getElementById("checkMyOptions");
-
+let chosenKindDiv = document.getElementById("chosen-kind");
 // below user input has to be lat and lon
 // get them to pick a location on google maps from google api and get lat and lon values.
 // open trip map api does not work with city names only as it is not specific enough
@@ -44,20 +44,20 @@ fetch(url)
           .then((response3) => response3.json())
           .then((data3) => {
             console.log("last", data3);
-            const kindsSet = [];
+            // const kindsSet = [];
 
-            // loop through json and get to kinds
-            for (let i = 0; i < data3.length; i++) {
-              // console.log(data3[i].kinds);
-              const kinds = data3[i].kinds.split(",");
-              console.log(kinds);
-              // if(kinds.includes('br'))
+            // // loop through json and get to kinds
+            // for (let i = 0; i < data3.length; i++) {
+            //   // console.log(data3[i].kinds);
+            //   const kinds = data3[i].kinds.split(",");
+            //   console.log(kinds);
+            //   // if(kinds.includes('br'))
 
-              // else if
-              // else if
-              // kindsSet.push(kinds);
-            }
-            console.log(kindsSet);
+            //   // else if
+            //   // else if
+            //   // kindsSet.push(kinds);
+            // }
+            // console.log(kindsSet);
           });
 
         // by default all sources are being returned
@@ -74,7 +74,7 @@ fetch(url)
 
 const kindsDiv = document.getElementById("kinds-container");
 
-optionsBtn.addEventListener("click", function (data3) {
+optionsBtn.addEventListener("click", function () {
   const kinds = [
     "accomodations",
     "adult",
@@ -94,14 +94,44 @@ optionsBtn.addEventListener("click", function (data3) {
       // then on each button being pressed, depending on the button, fetch the required kind subcategories
       let kindValue = e.target.textContent;
 
-      // api construct
-
-      const kindsAPI = ` https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&kinds=${kindValue}&format=json&limit=200&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
+      // api construct including kinds
+      const kindsAPI = `https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&kinds=${kindValue}&format=json&limit=200&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
 
       fetch(kindsAPI)
         .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
+        .then((chosenKind) => {
+          const subcategories = [];
+
+          // loop through retrieved json and get to kinds array of each place
+          for (let i = 0; i < chosenKind.length; i++) {
+            const kinds = chosenKind[i].kinds.split(",");
+            console.log(kinds);
+          }
+          console.log(subcategories);
+
+          // if subcategories, render button with the text of each
+          // check if name already rendered do not re-render the button with the same category
+
+          // extract name and rating and render on the page
+          // map through all the places
+          const cardsHTML = chosenKind.map((place) => {
+            const name = place.name;
+            const rating = place.rate;
+            // some places have no name and no rating so exclude them
+            if (place.name && place.rate) {
+              return `<div class="card" style="width: 18rem;">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Name: ${name}</h5>
+                <p class="card-text">Rating: ${rating}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>`;
+            }
+          });
+
+          // join the array of HTML strings into a single string and set it as the innerHTML of chosenKindDiv
+          chosenKindDiv.innerHTML = cardsHTML.join("");
         });
     });
     kindsDiv.appendChild(button);
