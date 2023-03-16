@@ -11,6 +11,8 @@ let lonMin, lonMax;
 
 // Use the OpenCage Geocoder API to get the location information for the latitude and longitude
 const apiKey = "d4fa4867fc804ba4a8af0e7e9346c89c";
+// google places api key
+const photosApiKey = "AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE";
 const url = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${latitude}%2C${longitude}&pretty=1`;
 fetch(url)
   .then((response) => response.json())
@@ -39,29 +41,28 @@ fetch(url)
         // do we want to specify the sources or give all 4? this increases conditionals but again makes the app more cool
         // default response is 50 results, we can limit it this depending on our need
 
-        const url3 = ` https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&format=json&limit=200&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
+        const url3 = ` https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&format=json&limit=2&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
 
         fetch(url3)
           .then((response3) => response3.json())
           .then((data3) => {
-            console.log("last", data3);
-            // const kindsSet = [];
+            console.log(data3);
 
-            // // loop through json and get to kinds
-            // for (let i = 0; i < data3.length; i++) {
-            //   // console.log(data3[i].kinds);
-            //   const kinds = data3[i].kinds.split(",");
-            //   console.log(kinds);
-            //   // if(kinds.includes('br'))
-
-            //   // else if
-            //   // else if
-            //   // kindsSet.push(kinds);
-            // }
-            // console.log(kindsSet);
+            for (let i = 0; i < data3.length; i++) {
+              const place = data3[i];
+              console.log(place);
+              const placeName = place.name;
+              console.log(placeName);
+              const photoReference = place.xid;
+              const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${photosApiKey}`;
+              const img = document.createElement("img");
+              img.src = photoUrl;
+              console.log(img.src);
+              img.alt = placeName;
+              // append image element to the DOM
+              document.body.appendChild(img);
+            }
           });
-
-        // by default all sources are being returned
       });
   });
 
