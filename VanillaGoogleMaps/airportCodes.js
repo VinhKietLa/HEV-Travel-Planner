@@ -14,7 +14,7 @@ submitBtn.addEventListener("click", (event) => {
 
   //location based on the users input of city.
   let userDestination = location;
-
+// using Airport AutoComplete API Request
   let queryURL = `https://airlabs.co/api/v9/suggest?q=${userDestination}&api_key=31fb9a8b-2207-4389-b92f-55f24946700e`;
   fetch(queryURL)
     .then((response) => response.json())
@@ -48,12 +48,57 @@ function handleAirportButtonClick(event) {
     const airportCountry = airportInfo[2];
 
     // Do something with the airport information
-    console.log(airportName, airportICAO, airportCountry);
+    return (airportName, airportICAO, airportCountry);
   }
+}
+
+function anotherFunction() {
+  // Call the handleAirportButtonClick function and get the airport ICAO code
+  const airportICAO = handleAirportButtonClick(event);
+
+  // Use the airport ICAO code in this function
+  console.log("The selected airport ICAO code is: " + airportICAO);
 }
 
 const startingAirportsDiv = document.getElementById("startingAirports");
 startingAirportsDiv.addEventListener("click", handleAirportButtonClick);
+
+
+
+const cityInput = document.getElementById("cityInput");
+const citySuggestions = document.getElementById("citySuggestions");
+
+cityInput.addEventListener("input", (event) => {
+  const input = event.target.value;
+
+  // Fetch city suggestions from an API
+  const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=31fb9a8b-2207-4389-b92f-55f24946700e`;
+  fetch(queryURL)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response)
+      // Clear existing suggestions
+      citySuggestions.innerHTML = "";
+
+      // Add new suggestions to the datalist element
+      const cities = response.response.cities;
+      cities.forEach((city) => {
+        const option = document.createElement("option");
+        option.value = city.name;
+        option.textContent = city.name;
+        citySuggestions.appendChild(option);
+      });
+    });
+});
+
+
+// Do another fetch using the users holiday destination? We can get these values either from when they click on the map or.....we can ask them to reconfirm....?
+
+//we also need dates for when they go and when they come back-----
+
+
+
+
 
 
 
