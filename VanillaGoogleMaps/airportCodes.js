@@ -1,6 +1,33 @@
 const submitBtn = document.getElementById("submitBtn");
 const userInput = document.getElementById("userInput");
 
+let departureAirportIata;
+console.log(departureAirportIata);
+
+let arrivalAirportIata;
+console.log(arrivalAirportIata);
+
+let departureDate;
+console.log(departureDate);
+
+let return_Date;
+console.log(return_Date);
+
+// const { adults, children, infants } = passengerValues;
+
+let numberOfAdults;
+let numberOfChildren;
+let numberofInfants;
+console.log(numberOfAdults);
+console.log(numberOfChildren);
+console.log(numberofInfants);
+
+let flightCabin;
+console.log(flightCabin);
+
+let flightCurrency;
+console.log(flightCurrency);
+
 //The users city that they will be visiting//
 const lat = 51.5072178;
 const lng = -0.1275862;
@@ -150,7 +177,7 @@ cityToInput.addEventListener("input", (event) => {
           apiToCity = selectedCity.iata_code;
           console.log(selectedCity.iata_code); // Log the icao_code property of the selected city
 
-          arrivalAirportIata = apiFromCity;
+          arrivalAirportIata = apiToCity;
         });
         
         cityToSuggestions.appendChild(option);
@@ -211,31 +238,36 @@ passengerDiv.addEventListener("click", (event) => {
   input.value = value;
   // this accesses the data-type of the selected input field
   const passengerType = input.dataset.type;
-  console.log(passengerType);
+  // console.log(passengerType);
   //This access the passengerValue and updates the key with the relevant value.
   passengerValues[passengerType] = value;
-  console.log(passengerValues); // Log the updated passengerValues object
+  // console.log(passengerValues); // Log the updated passengerValues object
 });
 
 
 const submitFormButton = document.querySelector('.subtBtn');
 submitFormButton.addEventListener('click', (event) => {
   event.preventDefault();
-  console.log(passengerValues);
   const { adults, children, infants } = passengerValues;
   numberOfAdults = adults;
   numberOfChildren = children;
   numberofInfants = infants;
   // Use passengerValues object in API call or other logic
+
+  getTicketPrice();
 });
 
 //CABIN CLASS SELECTION
 const cabinClassSelect = document.getElementById("cabinClass");
 
 let selectedCabinClass = cabinClassSelect.value;
+flightCabin = selectedCabinClass;
+
 console.log(selectedCabinClass);
 if(selectedCabinClass === undefined) {
    selectedCabinClass = 'Economy';
+   flightCabin = selectedCabinClass;
+
 }
 
 cabinClassSelect.addEventListener("change", (event) => {
@@ -249,10 +281,14 @@ cabinClassSelect.addEventListener("change", (event) => {
 const cabinCurrencySelect = document.getElementById("cabinCurrency");
 
 let selectedCabinCurrency = cabinCurrencySelect.value;
+flightCurrency = selectedCabinCurrency;
+
+console.log(selectedCabinCurrency);
+
 if(selectedCabinCurrency === null) {
    selectedCabinClass = 'USD';
-   flightCabin = selectedCabinClass;
-}
+   flightCurrency = selectedCabinCurrency;
+  }
 
 cabinCurrencySelect.addEventListener("change", (event) => {
    selectedCabinCurrency = event.target.value;
@@ -262,41 +298,60 @@ cabinCurrencySelect.addEventListener("change", (event) => {
 
 //FLIGHT API PRICE - GET FLIGHT PRICE//
 
-let departureAirportIata;
-console.log(departureAirportIata);
+// let departureAirportIata;
+// console.log(departureAirportIata);
 
-let arrivalAirportIata;
-console.log(arrivalAirportIata);
+// let arrivalAirportIata;
+// console.log(arrivalAirportIata);
 
-let departureDate;;
-console.log(departureDate);
+// let departureDate;
+// console.log(departureDate);
 
-let return_Date;
-console.log(return_Date);
+// let return_Date;
+// console.log(return_Date);
 
+// const { adults, children, infants } = passengerValues;
+
+// let numberOfAdults;
+// let numberOfChildren;
+// let numberofInfants;
+// console.log(numberOfAdults);
+// console.log(numberOfChildren);
+// console.log(numberofInfants);
+
+// let flightCabin;
+// console.log(flightCabin);
+
+// let flightCurrency;
+// console.log(flightCurrency);
 const { adults, children, infants } = passengerValues;
 
-let numberOfAdults;
-let numberOfChildren;
-let numberofInfants;
-console.log(numberOfAdults);
+function getTicketPrice() {
+
+  console.log(departureAirportIata);
+
+
+  console.log(arrivalAirportIata);
+
+  console.log(departureDate);
+
+  console.log(return_Date);
+
+  console.log(numberOfAdults);
 console.log(numberOfChildren);
 console.log(numberofInfants);
+  console.log(flightCabin);
 
-let flightCabin;
-console.log(flightCabin);
+  console.log(flightCurrency);
 
-let flightCurrency;
-console.log(flightCurrency);
-
-
-// let queryURL = `https://api.flightapi.io/roundtrip/A641210a9f75e113b1880490d/${departureAirportIata}/${arrivalAirportIata}/${departDate}/${return_Date}/${numberOfAdults}/${numberOfChildren}/${numberofInfants}/${flightCabin}/${flightCurrency}`;
-//   fetch(queryURL)
-//     .then((response) => response.json())
-//     .then((response) => {
-//       console.log(response)
-//     })
-
+  console.log('test');
+let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${departureAirportIata}/${arrivalAirportIata}/${departDate}/${return_Date}/${numberOfAdults}/${numberOfChildren}/${numberofInfants}/${flightCabin}/${flightCurrency}`;
+  fetch(queryURL)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response)
+    })
+  }
 
               //P-S-E-U-D-O--T-I-M-E//
 //return all collected variables from the form and then input this into Flight API to fetch pricing information
