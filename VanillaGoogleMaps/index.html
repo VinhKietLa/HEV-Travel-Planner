@@ -17,9 +17,9 @@
     </div>
 
     <div><h1>Ready to Fly?</div>
-    <h2>What city are you flying from?</h2>
+    <!-- <h2>What city are you flying from?</h2>
     <input type="text" placeholder="Enter city name" id="userInput">
-    <button id="submitBtn">Submit</button>
+    <button id="submitBtn">Submit</button> -->
 
    <div id="startingAirports">
 
@@ -29,20 +29,23 @@
    <div>
 
     <div class="autocomplete">
-      <label for="cityInput">From</label>
-      <input type="text" id="cityInput" list="citySuggestions">
-      <datalist id="citySuggestions"></datalist>
+      <label for="cityFromInput">From</label>
+      <input type="text" id="cityFromInput" list="cityFromSuggestions">
+      <datalist id="cityFromSuggestions"></datalist>
 
-      <label for="cityInput">To</label>
-      <input type="text" id="cityInput" list="citySuggestions">
-      <datalist id="citySuggestions"></datalist>
+      <label for="cityToInput">To</label>
+      <input type="text" id="cityToInput" list="citySuggestions">
+      <datalist id="cityToSuggestions"></datalist>
 
       <label for="dateInput">Depart</label>
-      <input type="date" id="dateInput" name="dateInput" min="2023-03-16" max="2023-03-31">
+      <input type="date" id="dateInput" name="dateInput">
       
 
       <label for="dateInput">Return</label>
-      <input type="date" id="dateInput" name="dateInput" min="2023-03-16" max="2023-03-31">
+      <input type="date" id="dateInput" name="dateInput">
+
+      <label for="dateInput">Travellers & Cabin Class</label>
+      <input type="date" id="dateInput" name="dateInput">
     </div>
     
     
