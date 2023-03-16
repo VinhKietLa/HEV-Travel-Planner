@@ -1,69 +1,109 @@
 <html>
-  <head>
-    <title>Simple Map</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <link rel="stylesheet" type="text/css" href="./index.css" />
-  </head>
-  <body>
-    <div id="map"></div>
+<head>
+  <title>Simple Map</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <div>
+  <link rel="stylesheet" type="text/css" href="./index.css" />
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <div>
     <h1>Your Selected Destination</h1>
     <input type="text" id="pac-input" placeholder="Enter a location">
 
     <h2 id="lat"></h2>
     <h2 id="lng"></h2>
-    </div>
+  </div>
 
-    <div><h1>Ready to Fly?</div>
-    <!-- <h2>What city are you flying from?</h2>
-    <input type="text" placeholder="Enter city name" id="userInput">
-    <button id="submitBtn">Submit</button> -->
+  <div>
+    <h1>Ready to Fly?
+  </div>
+  <h2>What city are you flying from?</h2>
 
-   <div id="startingAirports">
+  <div id="startingAirports">
 
 
-   </div>
+  </div>
 
-   <div>
+  <div>
 
-    <div class="autocomplete">
+    <form class="autocomplete">
       <label for="cityFromInput">From</label>
-      <input type="text" id="cityFromInput" list="cityFromSuggestions">
+      <input type="text" id="cityFromInput" list="cityFromSuggestidons">
       <datalist id="cityFromSuggestions"></datalist>
 
       <label for="cityToInput">To</label>
-      <input type="text" id="cityToInput" list="citySuggestions">
+      <input type="text" id="cityToInput" list="cityToSuggestidons">
       <datalist id="cityToSuggestions"></datalist>
 
       <label for="dateInput">Depart</label>
-      <input type="date" id="dateInput" name="dateInput">
-      
+      <input type="date" id="departDateInput" name="dateInput">
+
 
       <label for="dateInput">Return</label>
-      <input type="date" id="dateInput" name="dateInput">
+      <input type="date" id="returnDateInput" name="dateInput">
 
       <label for="dateInput">Travellers & Cabin Class</label>
-      <input type="date" id="dateInput" name="dateInput">
-    </div>
-    
-    
 
-   </div>
-   
-   
-   
-   
-   
-   
-   
-    <script type="module" src="./index.js"></script>
-    <script type="module" src="./airportCodes.js"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE&libraries=places&callback=initMap"
-      defer
-    ></script>
-    <!-- <script src="./flights.js"></script> -->
-  </body>
+      <div id="cabinClassDiv">
+        <select id="cabinClass" name="cabinClass">
+          <option value="Ecomony">Economy</option>
+          <option value="Business">Business</option>
+          <option value="First">First</option>
+        </select>
+        <select id="cabinCurrency" name="cabinCurrency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+        </select>
+      </div>
+
+
+      <div id="passengerDiv">
+        <div>
+          <button class="minus-btn">−</button>
+          <span> Adults:</span>
+          <input type="number" value="0" class="passenger-input" data-type="adults" />
+          <button class="plus-btn">+</button>
+        </div>
+
+        <div>
+          <button class="minus-btn">−</button>
+          <span> Children:</span>
+          <input type="number" value="0" class="passenger-input" data-type="children" />
+          <button class="plus-btn">+</button>
+        </div>
+
+        <div>
+          <button class="minus-btn">−</button>
+          <span> Infants:</span>
+          <input type="number" value="0" class="passenger-input" data-type="infants" />
+          <button class="plus-btn">+</button>
+        </div>
+      </div>
+
+      <button class="subtBtn">Search</button>
+    </form>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <script type="module" src="./index.js"></script>
+  <script type="module" src="./airportCodes.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE&libraries=places&callback=initMap"
+    defer></script>
+  <!-- <script src="./flights.js"></script> -->
+</body>
+
 </html>

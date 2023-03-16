@@ -1,4 +1,4 @@
-let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/HAN/SGN/2023-04-10/2023-04-12/1/0/1/Economy/USD`;
+let queryURL = `https://api.flightapi.io/roundtrip/A641210a9f75e113b1880490d/HAN/SGN/2023-04-10/2023-04-12/1/0/1/Economy/USD`;
   fetch(queryURL)
     .then((response) => response.json())
     .then((response) => {
