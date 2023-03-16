@@ -1,10 +1,94 @@
+// DOM elements
+let userLat = document.getElementById("lat");
+let userLng = document.getElementById("lng");
 let optionsBtn = document.getElementById("checkMyOptions");
 let chosenKindDiv = document.getElementById("chosen-kind");
 let catBtns = document.getElementById("category-buttons");
+
+// global variables
+let map;
+
+// global variables for lat and lon values from user input
+let lat, lng;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 51.507351, lng: -0.127758 },
+    zoom: 8,
+  });
+
+  const marker = new google.maps.Marker({
+    map: map,
+    visible: false,
+  });
+
+  // Use the geocoding API to look up the nearest city
+  google.maps.event.addListener(map, "click", function (event) {
+    lat = event.latLng.lat().toFixed(4);
+    lng = event.latLng.lng().toFixed(4);
+    // Specify the single latitude and longitude value
+    console.log(lat, "latitude");
+    console.log(lng, "longitude");
+
+    // Use the geocoding API to look up the nearest city
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ location: { lat, lng } }, function (results, status) {
+      if (status === "OK" && results.length > 0) {
+        // Find the nearest city
+        const cityResult = results.find((result) =>
+          result.types.includes("locality")
+        );
+
+        if (cityResult) {
+          // Get the city location and address
+          const cityLocation = cityResult.geometry.location;
+          const cityAddress = cityResult.formatted_address;
+          console.log("Nearest city:", cityAddress);
+
+          // Set the position of the marker to the nearest city location
+          marker.setPosition(cityLocation);
+          marker.setVisible(true);
+
+          // Update the UI with the latitude, longitude, and nearest city
+          userLat.textContent = `${cityLocation.lat()}`;
+          userLng.textContent = `${cityLocation.lng()}`;
+          // Add the nearest city to the UI
+          userLat.insertAdjacentHTML("afterend", `, ${cityAddress}`);
+        } else {
+          console.error("No city found");
+
+          // Set the marker to the center of the map if no city is found
+          marker.setPosition(map.getCenter());
+          marker.setVisible(true);
+
+          // Update the UI with the latitude and longitude
+          userLat.textContent = `${lat}`;
+          userLng.textContent = `${lng}`;
+          // Remove the nearest city from the UI
+          userLat.nextSibling?.remove();
+        }
+      } else {
+        console.error("Geocode failed:", status);
+
+        // Set the marker to the center of the map if geocoding fails
+        marker.setPosition(map.getCenter());
+        marker.setVisible(true);
+
+        // Update the UI with the latitude and longitude
+        userLat.textContent = `${lat}`;
+        userLng.textContent = `${lng}`;
+        // Remove the nearest city from the UI
+        userLat.nextSibling?.remove();
+      }
+    });
+  });
+}
+window.initMap = initMap;
+
 // below user input has to be lat and lon
 // get them to pick a location on google maps from google api and get lat and lon values.
 // open trip map api does not work with city names only as it is not specific enough
-// Specify the single latitude and longitude value
+
 const latitude = 35.7865;
 const longitude = -9.4194;
 let lonMin, lonMax;
@@ -105,7 +189,7 @@ optionsBtn.addEventListener("click", function () {
           // loop through retrieved json and get to kinds array of each place
           for (let i = 0; i < chosenKind.length; i++) {
             const kinds = chosenKind[i].kinds.split(",");
-            console.log(kinds);
+            // console.log(kinds);
 
             // for (let j = 0; j < kinds.length; j++) {
             //   const subkind = kinds[j];
