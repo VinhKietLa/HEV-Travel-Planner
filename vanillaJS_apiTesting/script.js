@@ -83,79 +83,29 @@ function initMap() {
     );
 
     // openmaptrip api fetch to hook into user input for lat and lon on map selection
-    const url3 = `https://api.opentripmap.com/0.1/en/places/radius?radius=1000&lon=${longitude}&lat=${latitude}&format=json&limit=500&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
+    const url3 = `https://api.opentripmap.com/0.1/en/places/radius?radius=1000&lon=${longitude}&lat=${latitude}&rate=2&format=json&limit=2&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
 
     fetch(url3)
       .then((response3) => response3.json())
       .then((data3) => {
-        console.log(data3);
+        console.log("data3", data3);
+
+        let list = document.getElementById("list");
+        list.innerHTML = "";
+        data3.forEach((item) => list.appendChild(createListItem(item)));
+        let nextBtn = document.getElementById("next_button");
+        if (count < offset + pageLength) {
+          nextBtn.style.visibility = "hidden";
+        } else {
+          nextBtn.style.visibility = "visible";
+          nextBtn.innerText = `Next (${offset + pageLength} of ${count})`;
+        }
       });
   });
 }
 window.initMap = initMap;
 
-// button to render possible options
-optionsBtn.addEventListener("click", function () {
-  const kinds = [
-    "accomodations",
-    "adult",
-    "amusements",
-    "interesting_places",
-    "sport",
-    "tourist_facilities",
-  ];
-  // category buttons only redner once
-  kindsDiv.innerHTML = "";
-
-  // loop through kinds and render buttons with each category
-
-  for (let i = 0; i < kinds.length; i++) {
-    const kind = kinds[i];
-    let button = document.createElement("button");
-    button.textContent = kind;
-    button.addEventListener("click", function (e) {
-      //empty cards on repeat
-      chosenKindDiv.innerHTML = "";
-      // then on each button being pressed, depending on the button, fetch the required kind subcategories
-      let kindValue = e.target.textContent;
-
-      // api construct including kinds
-      const kindsAPI = `https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&kinds=${kindValue}&format=json&limit=500&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
-
-      fetch(kindsAPI)
-        .then((response) => response.json())
-        .then((chosenKind) => {
-          // loop through retrieved json and get to kinds array of each place
-          for (let i = 0; i < chosenKind.length; i++) {
-            const kinds = chosenKind[i].kinds.split(",");
-            // console.log(kinds);
-          }
-          // extract name and rating and render on the page
-          // map through all the places
-          const cardsHTML = chosenKind.map((place) => {
-            const name = place.name;
-            const rating = place.rate;
-            // some places have no name and no rating so exclude them
-            if (place.name && place.rate) {
-              return `<div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Name: ${name}</h5>
-                <p class="card-text">Rating: ${rating}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>`;
-            }
-          });
-
-          // join the array of HTML strings into a single string and set it as the innerHTML of chosenKindDiv
-          chosenKindDiv.innerHTML = cardsHTML.join("");
-        });
-    });
-
-    kindsDiv.appendChild(button);
-  }
-});
+// search box user input
 
 function apiGet(method, query) {
   return new Promise(function (resolve, reject) {
