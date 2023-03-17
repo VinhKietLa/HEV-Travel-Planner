@@ -21,23 +21,56 @@
   <body>
     <div id="map"></div>
 
-    <div>
-      <h1>Your Selected Destination</h1>
+
+
       <!-- <input type="text" id="pac-input" placeholder="Enter a location" /> -->
 
-      <h2 id="result"></h2>
+      <div class="container">
+
+      <h1>Pick a location on the map or enter your desired destination</h1>
+        <h3>Your Selected Destination</h3>
+        <h2 style="border: 1px solid black" id="result"></h2>
+
+        <button class="btn btn-primary" id="checkMyOptions">Let's go!</button>
+        <div id="category-buttons"></div>
+
+    <div id="kinds-container"></div>
+
+    <div id="chosen-kind"></div>
+        <form id="search-form" class="input-group mb-4 border p-1">
+          <input
+            id="textbox"
+            type="search"
+            placeholder="Region, city (e.g. London)"
+            aria-describedby="button-search"
+            class="form-control bg-none border-0"
+          />
+          <div class="input-group-prepend border-0">
+            <button id="button-search" type="submit" class="btn btn-link">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </form>
+        <div id="info" class="alert alert-primary"></div>
+        <div class="row">
+          <div class="col-12 col-lg-5">
+            <div id="list" class="list-group"></div>
+            <nav class="text-center">
+              <button id="next_button" type="button" class="btn btn-primary">
+                Next
+              </button>
+            </nav>
+          </div>
+          <div class="col-12 col-lg-7">
+            <div id="poi" class="alert"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <h2 id="lat"></h2>
     <h2 id="lng"></h2>
 
-    <button id="checkMyOptions">Let's go!</button>
-
-    <div id="kinds-container"></div>
-
-    <div id="category-buttons"></div>
-
-    <div id="chosen-kind"></div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

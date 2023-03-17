@@ -6,6 +6,9 @@ let optionsBtn = document.getElementById("checkMyOptions");
 let chosenKindDiv = document.getElementById("chosen-kind");
 let catBtns = document.getElementById("category-buttons");
 const kindsDiv = document.getElementById("kinds-container");
+
+// Use the OpenCage Geocoder API to get the location information for the latitude and longitude
+const apiKey = "d4fa4867fc804ba4a8af0e7e9346c89c";
 // global variables
 let map;
 
@@ -58,6 +61,8 @@ function initMap() {
             marker.setVisible(true);
           } else {
             console.error("No city found");
+            // display the nearest city on the webpage
+            result.textContent = "No city found, please try again!";
 
             // Set the marker to the center of the map if no city is found
             marker.setPosition(map.getCenter());
@@ -77,75 +82,19 @@ function initMap() {
       }
     );
 
-    // Use the OpenCage Geocoder API to get the location information for the latitude and longitude
-    const apiKey = "d4fa4867fc804ba4a8af0e7e9346c89c";
-    // google places api key
-    // const photosApiKey = "AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE";
-    const url = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${latitude}%2C${longitude}&pretty=1`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        const location = data.results[0].formatted;
-        console.log(location);
-        // Use the OpenCage Geocoder API to get the latitude and longitude for the location with a slight variation
-        const url2 = `https://api.opencagedata.com/geocode/v1/json?key=${apiKey}&q=${location}&pretty=1`;
-        fetch(url2)
-          .then((response2) => response2.json())
-          .then((data2) => {
-            const lat2 = data2.results[0].geometry.lat;
-            const lon2 = data2.results[0].geometry.lng;
+    // openmaptrip api fetch to hook into user input for lat and lon on map selection
+    const url3 = `https://api.opentripmap.com/0.1/en/places/radius?radius=1000&lon=${longitude}&lat=${latitude}&format=json&limit=500&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
 
-            // Calculate the latitude and longitude range for the original location
-            latMin = Math.min(latitude, lat2);
-            latMax = Math.max(latitude, lat2);
-            lonMin = Math.min(longitude, lon2);
-            lonMax = Math.max(longitude, lon2);
-
-            console.log(`Latitude Range: ${latMin} to ${latMax}`);
-            console.log(`Longitude Range: ${lonMin} to ${lonMax}`);
-
-            // open trip map return
-
-            const url3 = ` https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&format=json&limit=10&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
-
-            fetch(url3)
-              .then((response3) => response3.json())
-              .then((data3) => {
-                console.log(data3);
-
-                // for (let i = 0; i < data3.length; i++) {
-                //   const place = data3[i];
-                //   console.log(place);
-                //   const placeName = place.name;
-                //   console.log(placeName);
-                //   const photoReference = place.xid;
-                //   const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${photosApiKey}`;
-                //   const img = document.createElement("img");
-                //   img.src = photoUrl;
-                //   console.log(img.src);
-                //   img.alt = placeName;
-                //   // append image element to the DOM
-                //   document.body.appendChild(img);
-              });
-          });
+    fetch(url3)
+      .then((response3) => response3.json())
+      .then((data3) => {
+        console.log(data3);
       });
   });
 }
 window.initMap = initMap;
 
-// below user input has to be lat and lon
-// get them to pick a location on google maps from google api and get lat and lon values.
-// open trip map api does not work with city names only as it is not specific enough
-
-// write a function to group by kind and render
-
-// subsections: give them all? or perhaps define on separate components of the react app
-
-// when the user clicks on a button give them multiple buttons with 4 main kinds: big groups - accommodations, adult, amusements, interesting_places, sport, tourist_facilitites
-// add event listener on the button
-// get kids container from html
-
+// button to render possible options
 optionsBtn.addEventListener("click", function () {
   const kinds = [
     "accomodations",
@@ -155,6 +104,8 @@ optionsBtn.addEventListener("click", function () {
     "sport",
     "tourist_facilities",
   ];
+  // category buttons only redner once
+  kindsDiv.innerHTML = "";
 
   // loop through kinds and render buttons with each category
 
@@ -163,11 +114,13 @@ optionsBtn.addEventListener("click", function () {
     let button = document.createElement("button");
     button.textContent = kind;
     button.addEventListener("click", function (e) {
+      //empty cards on repeat
+      chosenKindDiv.innerHTML = "";
       // then on each button being pressed, depending on the button, fetch the required kind subcategories
       let kindValue = e.target.textContent;
 
       // api construct including kinds
-      const kindsAPI = `https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&kinds=${kindValue}&format=json&limit=200&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
+      const kindsAPI = `https://api.opentripmap.com/0.1/en/places/bbox?lon_min=${lonMin}&lon_max=${lonMax}&lat_min=${latMin}&lat_max=${latMax}&kinds=${kindValue}&format=json&limit=500&apikey=5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758`;
 
       fetch(kindsAPI)
         .then((response) => response.json())
@@ -199,6 +152,131 @@ optionsBtn.addEventListener("click", function () {
           chosenKindDiv.innerHTML = cardsHTML.join("");
         });
     });
+
     kindsDiv.appendChild(button);
   }
+});
+
+function apiGet(method, query) {
+  return new Promise(function (resolve, reject) {
+    let otmAPI =
+      "https://api.opentripmap.com/0.1/en/places/" +
+      method +
+      "?apikey=" +
+      "5ae2e3f221c38a28845f05b6165ca5f078a6cd7e01751064ebf17758";
+    if (query !== undefined) {
+      otmAPI += "&" + query;
+    }
+    fetch(otmAPI)
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(function (err) {
+        console.log("Fetch Error :-S", err);
+      });
+  });
+}
+
+// paging
+// results per page
+const pageLength = 5;
+
+let lon;
+let lat;
+
+let offset = 0;
+// total objects count
+let count;
+
+// get placename from input text box and get a location from API
+// if place found, loading function
+
+document
+  .getElementById("search-form")
+  .addEventListener("submit", function (event) {
+    let name = document.getElementById("textbox").value;
+    apiGet("geoname", "name=" + name).then(function (data) {
+      let message = "Name not found";
+      if (data.status == "OK") {
+        message = data.name + ", " + data.country;
+        lon = data.lon;
+        lat = data.lat;
+        firstLoad();
+      }
+      document.getElementById("info").innerHTML = `${message}`;
+    });
+    event.preventDefault();
+  });
+
+// function to get total object count within 1km from specified location and then loads first objects page
+
+function firstLoad() {
+  apiGet(
+    "radius",
+    `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=count`
+  ).then(function (data) {
+    count = data.count;
+    offset = 0;
+    document.getElementById(
+      "info"
+    ).innerHTML += `<p>${count} objects with description in a 1km radius</p>`;
+    loadList();
+  });
+}
+
+// load list
+function loadList() {
+  apiGet(
+    "radius",
+    `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=json`
+  ).then(function (data) {
+    let list = document.getElementById("list");
+    list.innerHTML = "";
+    data.forEach((item) => list.appendChild(createListItem(item)));
+    let nextBtn = document.getElementById("next_button");
+    if (count < offset + pageLength) {
+      nextBtn.style.visibility = "hidden";
+    } else {
+      nextBtn.style.visibility = "visible";
+      nextBtn.innerText = `Next (${offset + pageLength} of ${count})`;
+    }
+  });
+}
+
+// create list item at the left pane
+function createListItem(item) {
+  let a = document.createElement("a");
+  a.className = "list-group-item list-group-item-action";
+  a.setAttribute("data-id", item.xid);
+  a.innerHTML = `<h5 class="list-group-item-heading">${item.name}</h5>`;
+
+  a.addEventListener("click", function () {
+    document.querySelectorAll("#list a").forEach(function (item) {
+      item.classList.remove("active");
+    });
+    this.classList.add("active");
+    let xid = this.getAttribute("data-id");
+    apiGet("xid/" + xid).then((data) => onShowPOI(data));
+  });
+  return a;
+}
+
+// show preview and description at the right pane
+
+function onShowPOI(data) {
+  let poi = document.getElementById("poi");
+  poi.innerHTML = "";
+  if (data.preview) {
+    poi.innerHTML += `<img src="${data.preview.source}">`;
+  }
+  poi.innerHTML += data.wikipedia_extracts
+    ? data.wikipedia_extracts.html
+    : data.info
+    ? data.info.descr
+    : "No description";
+}
+
+// next button
+document.getElementById("next_button").addEventListener("click", function () {
+  offset += pageLength;
+  loadList();
 });
