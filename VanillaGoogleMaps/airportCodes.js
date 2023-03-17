@@ -353,6 +353,202 @@ let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${de
     })
   }
 
+  const flights = [
+    {
+        "paymentFees": [
+            {
+                "paymentMethodId": 15,
+                "currencyCode": "USD",
+                "amount": 0,
+                "amountUsd": 0
+            },
+            {
+                "paymentMethodId": 10,
+                "currencyCode": "USD",
+                "amount": 0,
+                "amountUsd": 0
+            },
+            {
+                "paymentMethodId": 3,
+                "currencyCode": "USD",
+                "amount": 0,
+                "amountUsd": 0
+            }
+        ],
+        "id": "374530d2d7b07676msr:mytrip.com.us:727b142aebce050",
+        "price": {
+            "totalAmount": 1858,
+            "totalAmountUsd": 1857.99,
+            "amount": 1858,
+            "amountUsd": 1857.99,
+            "originalAmount": 1857.99,
+            "originalAmountUsd": 1857.99,
+            "amountPerAdult": 1857.99,
+            "amountPerChild": 0,
+            "amountPerInfant": 0,
+            "taxAmount": 0,
+            "taxAmountUsd": 0,
+            "totalTaxAmount": 0,
+            "totalTaxAmountUsd": 0,
+            "currencyCode": "USD",
+            "paymentFeeAmountUsd": 0,
+            "bookingFee": 0,
+            "bookingFeeUsd": 0,
+            "totalBookingFee": 0,
+            "totalBookingFeeUsd": 0
+        },
+        "providerCode": "mytrip.com.us",
+        "handoffUrl": "https://handoff.wego.com/flights/continue?currency=USD&url_locale=en&site_code=US&device_type=desktop&app_type=WEB_APP&domain=www.wego.com&fare_id=374530d2d7b07676msr:mytrip.com.us:727b142aebce050&route=HND-LHR&search_id=374530d2d7b07676msr&trip_id=HND:LHR:2023-03-20:LHR:HND:2023-03-22&pwa=false&api_version=2&integration_code=mytrip.com&region=ap-southeast-1&placement_type=metasearch",
+        "ecpc": 0.661797,
+        "remainingSeatsCount": 0,
+        "conditionIds": [],
+        "legConditionIds": [],
+        "refundable": false,
+        "exchangeable": false,
+        "tags": [],
+        "tripId": "374530d2d7b07676msr:OZ1035~20-OZ521~21=CX252~22-CX590~23-7G26~23"
+    },{
+      "paymentFees": [
+          {
+              "paymentMethodId": 15,
+              "currencyCode": "USD",
+              "amount": 0,
+              "amountUsd": 0
+          },
+          {
+              "paymentMethodId": 10,
+              "currencyCode": "USD",
+              "amount": 0,
+              "amountUsd": 0
+          },
+          {
+              "paymentMethodId": 3,
+              "currencyCode": "USD",
+              "amount": 0,
+              "amountUsd": 0
+          }
+      ],
+      "id": "374530d2d7b07676msr:flightnetwork.com.us:f785822f55d9d059",
+      "price": {
+          "totalAmount": 1858,
+          "totalAmountUsd": 1857.87,
+          "amount": 1858,
+          "amountUsd": 1857.87,
+          "originalAmount": 1857.87,
+          "originalAmountUsd": 1857.87,
+          "amountPerAdult": 1857.87,
+          "amountPerChild": 0,
+          "amountPerInfant": 0,
+          "taxAmount": 0,
+          "taxAmountUsd": 0,
+          "totalTaxAmount": 0,
+          "totalTaxAmountUsd": 0,
+          "currencyCode": "USD",
+          "paymentFeeAmountUsd": 0,
+          "bookingFee": 0,
+          "bookingFeeUsd": 0,
+          "totalBookingFee": 0,
+          "totalBookingFeeUsd": 0
+      },
+      "providerCode": "flightnetwork.com.us",
+      "handoffUrl": "https://handoff.wego.com/flights/continue?currency=USD&url_locale=en&site_code=US&device_type=desktop&app_type=WEB_APP&domain=www.wego.com&fare_id=374530d2d7b07676msr:flightnetwork.com.us:f785822f55d9d059&route=HND-LHR&search_id=374530d2d7b07676msr&trip_id=HND:LHR:2023-03-20:LHR:HND:2023-03-22&pwa=false&api_version=2&integration_code=flightnetwork.com&region=ap-southeast-1&placement_type=metasearch",
+      "ecpc": 0.583422,
+      "remainingSeatsCount": 0,
+      "conditionIds": [],
+      "legConditionIds": [],
+      "refundable": false,
+      "exchangeable": false,
+      "tags": [],
+      "tripId": "374530d2d7b07676msr:OZ1035~20-OZ521~21=CX252~22-CX590~23-7G26~23"
+  },
+  {
+    "paymentFees": [
+        {
+            "paymentMethodId": 15,
+            "currencyCode": "USD",
+            "amount": 0,
+            "amountUsd": 0
+        },
+        {
+            "paymentMethodId": 10,
+            "currencyCode": "USD",
+            "amount": 0,
+            "amountUsd": 0
+        },
+        {
+            "paymentMethodId": 3,
+            "currencyCode": "USD",
+            "amount": 0,
+            "amountUsd": 0
+        }
+    ],
+    "id": "374530d2d7b07676msr:mytrip.com.us:e6eab885970c7799",
+    "price": {
+        "totalAmount": 1893,
+        "totalAmountUsd": 1893.28,
+        "amount": 1893,
+        "amountUsd": 1893.28,
+        "originalAmount": 1893.28,
+        "originalAmountUsd": 1893.28,
+        "amountPerAdult": 1893.28,
+        "amountPerChild": 0,
+        "amountPerInfant": 0,
+        "taxAmount": 0,
+        "taxAmountUsd": 0,
+        "totalTaxAmount": 0,
+        "totalTaxAmountUsd": 0,
+        "currencyCode": "USD",
+        "paymentFeeAmountUsd": 0,
+        "bookingFee": 0,
+        "bookingFeeUsd": 0,
+        "totalBookingFee": 0,
+        "totalBookingFeeUsd": 0
+    },
+    "providerCode": "mytrip.com.us",
+    "handoffUrl": "https://handoff.wego.com/flights/continue?currency=USD&url_locale=en&site_code=US&device_type=desktop&app_type=WEB_APP&domain=www.wego.com&fare_id=374530d2d7b07676msr:mytrip.com.us:e6eab885970c7799&route=HND-LHR&search_id=374530d2d7b07676msr&trip_id=HND:LHR:2023-03-20:LHR:HND:2023-03-22&pwa=false&api_version=2&integration_code=mytrip.com&region=ap-southeast-1&placement_type=metasearch",
+    "ecpc": 0.661797,
+    "remainingSeatsCount": 0,
+    "conditionIds": [],
+    "legConditionIds": [],
+    "refundable": false,
+    "exchangeable": false,
+    "tags": [],
+    "tripId": "374530d2d7b07676msr:OZ1035~20-OZ521~21=CX252~22-CX590~23-JL134~23"
+},
+    // Additional flights objects...
+];
+
+
+const flightInfo = flights.map(flight => {
+    return {
+        price: flight.price,
+        providerCode: flight.providerCode,
+        handoffUrl: flight.handoffUrl,
+    };
+});
+
+console.log(flightInfo);
+// Generate an array of HTML strings representing the bootstrap cards
+const flightCards = flights.map(flight => {
+  return `
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h3 class="card-title">Provider: ${flight.providerCode}</h3>
+        <p class="card-text">Price: ${flight.price.totalAmount} ${flight.price.currencyCode}</p>
+        <a href="${flight.handoffUrl}" class="btn btn-primary">Book Now</a>
+      </div>
+    </div>`;
+});
+
+// Insert the flight cards into the HTML document
+const results = document.getElementById('FlightResults');
+results.innerHTML = flightCards.join('');
+
+
+
+
+
+
               //P-S-E-U-D-O--T-I-M-E//
 //return all collected variables from the form and then input this into Flight API to fetch pricing information
 
