@@ -28,7 +28,7 @@ return (
         <option value="First">First</option>
       </select>
       <select id="cabinCurrency" name="cabinCurrency">
-        <option value="USD">USD</option>
+        <option value="USD">USDD</option>
         <option value="EUR">EUR</option>
         <option value="GBP">GBP</option>
       </select>
