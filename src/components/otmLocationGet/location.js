@@ -17,36 +17,51 @@ export function apiGet(method, query) {
   });
 }
 
-document
-  .getElementById("search-form")
-  .addEventListener("submit", function (event) {
-    let name = document.getElementById("textbox").value;
-    apiGet("geoname", "name=" + name).then(function (data) {
-      let message = "Name not found";
-      if (data.status == "OK") {
-        message = data.name + ", " + data.country;
-        lon = data.lon;
-        lat = data.lat;
-        firstLoad();
-      }
-      document.getElementById("info").innerHTML = `${message}`;
-    });
-    event.preventDefault();
+// paging
+// results per page
+const pageLength = 5;
+
+let lon;
+let lat;
+
+let offset = 0;
+// total objects count
+let count;
+
+export function locationFormsubmit() {
+  let name = document.getElementById("textbox").value;
+  apiGet("geoname", "name=" + name).then(function (data) {
+    let message = "Name not found";
+    if (data.status == "OK") {
+      message = data.name + ", " + data.country;
+      lon = data.lon;
+      lat = data.lat;
+      firstLoad();
+    }
+    document.getElementById("info").innerHTML = `${message}`;
   });
+}
+
+// document
+//   .getElementById("search-form")
+//   .addEventListener("submit", function (event) {
+//     let name = document.getElementById("textbox").value;
+//     apiGet("geoname", "name=" + name).then(function (data) {
+//       let message = "Name not found";
+//       if (data.status == "OK") {
+//         message = data.name + ", " + data.country;
+//         lon = data.lon;
+//         lat = data.lat;
+//         firstLoad();
+//       }
+//       document.getElementById("info").innerHTML = `${message}`;
+//     });
+//     event.preventDefault();
+//   });
 
 // function to get total object count within 1km from specified location and then loads first objects page
 
 export function firstLoad() {
-  // paging
-  // results per page
-  const pageLength = 5;
-
-  let lon;
-  let lat;
-
-  let offset = 0;
-  // total objects count
-  let count;
   apiGet(
     "radius",
     `radius=1000&limit=${pageLength}&offset=${offset}&lon=${lon}&lat=${lat}&rate=2&format=count`

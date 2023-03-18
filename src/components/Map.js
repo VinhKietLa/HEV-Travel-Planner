@@ -7,6 +7,13 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import "../styles/map.css";
+import {
+  firstLoad,
+  loadList,
+  createListItem,
+  apiGet,
+  locationFormsubmit,
+} from "./otmLocationGet/location";
 
 const containerStyle = {
   width: "90%",
@@ -36,6 +43,16 @@ function Map() {
 
   const handleButtonClick = () => {
     navigate("/places-to-see");
+  };
+
+  const handleFormSumit = () => {
+    navigate("/places-to-see");
+    let lon;
+    let lat;
+
+    firstLoad();
+    loadList();
+    locationFormsubmit();
   };
 
   const onMapClick = async (e) => {
@@ -110,7 +127,7 @@ function Map() {
           />
           <div class="input-group-prepend border-0">
             <button
-              onClick={handleButtonClick}
+              onClick={handleFormSumit}
               id="button-search"
               type="submit"
               class="btn btn-link"
