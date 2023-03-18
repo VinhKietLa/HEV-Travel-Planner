@@ -1,8 +1,7 @@
 const submitBtn = document.getElementById("submitBtn");
 const userInput = document.getElementById("userInput");
 
-let departureAirportIata;
-let arrivalAirportIata;
+
 let departureDate;
 let return_Date;
 // const { adults, children, infants } = passengerValues;
@@ -11,7 +10,8 @@ let numberOfChildren;
 let numberofInfants;
 let flightCabin;
 let flightCurrency;
-
+let departureAirportIata;
+let arrivalAirportIata;
 const cityFromInput = document.getElementById("cityFromInput");
 const cityFromSuggestions = document.getElementById("cityFromSuggestions");
 
@@ -64,6 +64,8 @@ const cityToSuggestions = document.getElementById("cityToSuggestions");
 let toCity = null; // To be used later in the flights API as the departure-airport-iata
 let apiToCity = null;
 //This is an event listener for the TO INPUT (user select destination airport)
+
+
 cityToInput.addEventListener("input", (event) => {
   //This sets the variable input to the value that is entered in the input field
   let input = event.target.value;
@@ -106,6 +108,10 @@ cityToInput.addEventListener("input", (event) => {
       });
     });
 });
+
+
+
+
 //FROM AND TO DEPARTURE DATE SELECTIONS
 const departDateInput = document.getElementById("departDateInput");
 const returnDateInput = document.getElementById("returnDateInput");
@@ -122,6 +128,22 @@ returnDateInput.addEventListener("input", (event) => {
   returnDate = event.target.value;
   return_Date = returnDate;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //PASSENGER BUTTONS//
 
