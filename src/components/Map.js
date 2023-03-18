@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  useJsApiLoader,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import "../styles/map.css";
 import {
   firstLoad,
   loadList,
-  createListItem,
-  apiGet,
   locationFormsubmit,
+  mapFormSubmit,
 } from "./otmLocationGet/location";
 
 const containerStyle = {
@@ -41,16 +35,19 @@ function Map() {
 
   const navigate = useNavigate();
 
+  // map pin location search
   const handleButtonClick = () => {
     navigate("/places-to-see");
-  };
-
-  const handleFormSumit = () => {
-    navigate("/places-to-see");
-    let lon;
-    let lat;
 
     firstLoad();
+    loadList();
+    mapFormSubmit({ latitude }, { longitude });
+  };
+
+  // search by location
+  const handleFormSumit = () => {
+    navigate("/places-to-see");
+
     loadList();
     locationFormsubmit();
   };
@@ -62,7 +59,7 @@ function Map() {
     setLatitude(latitude);
     setLongitude(longitude);
 
-    const geocoder = new window.google.maps.Geocoder();
+    let geocoder = new window.google.maps.Geocoder();
     geocoder.geocode(
       { location: { lat: latitude, lng: longitude } },
       function (results, status) {
@@ -86,6 +83,7 @@ function Map() {
           console.error("Geocode failed", status);
           setMarkerPosition({ lat: latitude, lng: longitude });
         }
+        mapFormSubmit(latitude, longitude);
       }
     );
   };
@@ -104,6 +102,7 @@ function Map() {
         <h2>Pick a location on the map or enter your desired destination</h2>
         <h3>Your Selected Destination:</h3>
         <h4
+          className="map-loc"
           style={{
             border: "1px solid gray",
             height: "30px",

@@ -28,11 +28,26 @@ let offset = 0;
 // total objects count
 let count;
 
+export function mapFormSubmit(latitude, longitude) {
+  apiGet(
+    "radius",
+    `radius=1000&limit=${pageLength}&offset=${offset}&lon=${longitude}&lat=${latitude}&rate=2&format=count`
+  ).then(function (data) {
+    console.log(data, "data");
+    count = data.count;
+    offset = 0;
+    document.getElementById(
+      "info"
+    ).innerHTML += `<p>${count} objects with description in a 1km radius</p>`;
+    loadList();
+  });
+}
+
 export function locationFormsubmit() {
   let name = document.getElementById("textbox").value;
   apiGet("geoname", "name=" + name).then(function (data) {
     let message = "Name not found";
-    if (data.status == "OK") {
+    if (data.status === "OK") {
       message = data.name + ", " + data.country;
       lon = data.lon;
       lat = data.lat;
