@@ -2,94 +2,15 @@ const submitBtn = document.getElementById("submitBtn");
 const userInput = document.getElementById("userInput");
 
 let departureAirportIata;
-console.log(departureAirportIata);
-
 let arrivalAirportIata;
-console.log(arrivalAirportIata);
-
 let departureDate;
-console.log(departureDate);
-
 let return_Date;
-console.log(return_Date);
-
 // const { adults, children, infants } = passengerValues;
-
 let numberOfAdults;
 let numberOfChildren;
 let numberofInfants;
-console.log(numberOfAdults);
-console.log(numberOfChildren);
-console.log(numberofInfants);
-
 let flightCabin;
-console.log(flightCabin);
-
 let flightCurrency;
-console.log(flightCurrency);
-
-//The users city that they will be visiting//
-const lat = 51.5072178;
-const lng = -0.1275862;
-
-//Function for taking the users input of the city they're flying from and on submit giving the user the local airports which they can select where to fly from.
-// submitBtn.addEventListener("click", (event) => {
-//   event.preventDefault();
-
-//   //Users location
-//   let location = userInput.value;
-
-//   //location based on the users input of city.
-//   let userDestination = location;
-// // using Airport AutoComplete API Request
-//   let queryURL = `https://airlabs.co/api/v9/suggest?q=${userDestination}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
-//   fetch(queryURL)
-//     .then((response) => response.json())
-//     .then((response) => {
-//       console.log(response);
-//       console.log(response.response.airports);
-
-//       //This response returns the nearest airports based on the city name
-//       let startingAirport = response.response.airports;
-
-//       //This maps through the response and returns the airport name, icao code and country code, the icao code will be used as part of the flight prices api.
-//       const airportButtonsHTML = startingAirport
-//         .map((airport) => {
-//           return `<button>${airport.name}, ${airport.icao_code}, ${airport.country_code}</button>`;
-//         })
-//         .join("");
-//       // This renders the airports as buttons on the page so the user can select where they would prefer to fly from.
-
-//       const startingAirportsDiv = document.getElementById("startingAirports");
-//       startingAirportsDiv.innerHTML = airportButtonsHTML;
-//     });
-// });
-
-// This function listens to the generated airport buttons and will return the selected icao code which is needed for the flights api fetch//
-// function handleAirportButtonClick(event) {
-//   if (event.target.tagName === "BUTTON") {
-//     // The user clicked a button
-//     const button = event.target;
-//     const airportInfo = button.textContent.split(", ");
-//     const airportName = airportInfo[0];
-//     const airportICAO = airportInfo[1];
-//     const airportCountry = airportInfo[2];
-
-//     // Do something with the airport information
-//     return (airportName, airportICAO, airportCountry);
-//   }
-// }
-
-// function anotherFunction() {
-//   // Call the handleAirportButtonClick function and get the airport ICAO code
-//   const airportICAO = handleAirportButtonClick(event);
-
-//   // Use the airport ICAO code in this function
-//   console.log("The selected airport ICAO code is: " + airportICAO);
-// }
-
-// const startingAirportsDiv = document.getElementById("startingAirports");
-// startingAirportsDiv.addEventListener("click", handleAirportButtonClick);
 
 const cityFromInput = document.getElementById("cityFromInput");
 const cityFromSuggestions = document.getElementById("cityFromSuggestions");
@@ -706,3 +627,65 @@ results.innerHTML = flightsAPI.join('');
 // The long and Lat values can be taken from Google maps when the user selects a destination; however how do I get the users current location?
 
 //Once this is done I can use the airlabs api to get the nearby airports, the user can then select the airport they want to depart from and then the aiport they want to fly to and then we can use flights api to fetch a price?
+
+
+
+
+//Function for taking the users input of the city they're flying from and on submit giving the user the local airports which they can select where to fly from.
+// submitBtn.addEventListener("click", (event) => {
+//   event.preventDefault();
+
+//   //Users location
+//   let location = userInput.value;
+
+//   //location based on the users input of city.
+//   let userDestination = location;
+// // using Airport AutoComplete API Request
+//   let queryURL = `https://airlabs.co/api/v9/suggest?q=${userDestination}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
+//   fetch(queryURL)
+//     .then((response) => response.json())
+//     .then((response) => {
+//       console.log(response);
+//       console.log(response.response.airports);
+
+//       //This response returns the nearest airports based on the city name
+//       let startingAirport = response.response.airports;
+
+//       //This maps through the response and returns the airport name, icao code and country code, the icao code will be used as part of the flight prices api.
+//       const airportButtonsHTML = startingAirport
+//         .map((airport) => {
+//           return `<button>${airport.name}, ${airport.icao_code}, ${airport.country_code}</button>`;
+//         })
+//         .join("");
+//       // This renders the airports as buttons on the page so the user can select where they would prefer to fly from.
+
+//       const startingAirportsDiv = document.getElementById("startingAirports");
+//       startingAirportsDiv.innerHTML = airportButtonsHTML;
+//     });
+// });
+
+// This function listens to the generated airport buttons and will return the selected icao code which is needed for the flights api fetch//
+// function handleAirportButtonClick(event) {
+//   if (event.target.tagName === "BUTTON") {
+//     // The user clicked a button
+//     const button = event.target;
+//     const airportInfo = button.textContent.split(", ");
+//     const airportName = airportInfo[0];
+//     const airportICAO = airportInfo[1];
+//     const airportCountry = airportInfo[2];
+
+//     // Do something with the airport information
+//     return (airportName, airportICAO, airportCountry);
+//   }
+// }
+
+// function anotherFunction() {
+//   // Call the handleAirportButtonClick function and get the airport ICAO code
+//   const airportICAO = handleAirportButtonClick(event);
+
+//   // Use the airport ICAO code in this function
+//   console.log("The selected airport ICAO code is: " + airportICAO);
+// }
+
+// const startingAirportsDiv = document.getElementById("startingAirports");
+// startingAirportsDiv.addEventListener("click", handleAirportButtonClick);
