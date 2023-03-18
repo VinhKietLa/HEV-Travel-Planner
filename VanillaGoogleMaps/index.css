@@ -1,0 +1,79 @@
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+ #map {
+    height: 50%;
+    width:100%;
+    margin: 0 auto;
+  }
+  
+  /* 
+   * Optional: Makes the sample page fill the window. 
+   */
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #cityFromSuggestions {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width:200px;
+  }
+  
+  #cityFromSuggestions option {
+    /* padding: 8px 12px; */
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+  }
+  
+  #cityFromSuggestions option:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+
+  #cityToSuggestions {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width:200px;
+    right: 680px;
+  }
+  
+ #cityToSuggestions option {
+    /* padding: 8px 12px; */
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+  }
+  
+ #cityToSuggestions option:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
+
+  #cabinClassDiv {
+    margin-top: 5rem;
+  }
+  
