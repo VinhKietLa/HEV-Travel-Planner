@@ -11,35 +11,129 @@ function Flights() {
   const [departDate, setDepartDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
 
-  //Cabin class and currency hooks
+  // Cabin class and currency hooks
   const [flightCabin, setFlightCabin] = useState("Economy");
   const [flightCurrency, setFlightCurrency] = useState("USD");
 
-  //Passenger hooks
+  // Passenger hooks
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
 
+    // Fetch city from Airlabs API.
+    useEffect(() => {
+      function handleFromInputChange(event) {
+        const input = event.target.value;
+        // Fetch city suggestions from Airlabs API
+        const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
+        fetch(queryURL)
+          .then((response) => response.json())
+          .then((response) => {
+            let cities = response.response.airports;
+  
+            // Clear existing suggestions
+            setFromCity("");
+  
+            // Add new suggestions to the datalist element.
+            const options = cities.map((city) => (
+              <option
+                key={`${city.name}-${city.iata_code}`}
+                value={`${city.name} ${city.iata_code}`}
+                onClick={() => handleOptionClick(city)}
+              >
+                {`${city.name} (${city.iata_code})`}
+              </option>
+            ));
+            //Updating options elements/setting state
+            setFromCity(options);
+          });
+      }
+  
+      // This function is called when an `option` element is clicked and sets the `fromCity` and `departureAirportIata`
+      function handleOptionClick(city) {
+        setFromCity(city.iata_code);
+        // setDepartureAirportIata(city.iata_code);
+      }
+      // Selects the `#cityFromInput` element from the DOM.
+      const cityFromInput = document.querySelector("#cityFromInput");
+  
+      // This adds an `input` event listener to the `#cityFromInput` element that calls the `handleFromInputChange` function
+      // whenever the input value changes.
+  
+      cityFromInput.addEventListener("input", handleFromInputChange);
+    }, []);
+  
+    // Fetch city To suggestions from Airlabs API
+    useEffect(() => {
+      function handleToInputChange(event) {
+        const input = event.target.value;
+        console.log(input);
+        // Fetch city suggestions To Airlabs API
+        const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
+        fetch(queryURL)
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(input);
+            console.log(response);
+            let cities = response.response.airports;
+  
+            // Clear existing suggestions
+            setApiFromCity("");
+  
+            // Add new suggestions to the datalist element.
+            const options = cities.map((city) => (
+              <option
+                key={`${city.name}-${city.iata_code}`}
+                value={`${city.name} ${city.iata_code}`}
+                onClick={() => handleOptionClick(city)}
+              >
+                {`${city.name} (${city.iata_code})`}
+              </option>
+            ));
+            //Updating options element/setting state
+            setApiFromCity(options);
+          });
+      }
+      // This function is called when an `option` element is clicked and sets the `apiFromCity` and `departureAirportIata`
+  
+      function handleOptionClick(city) {
+        console.log(city);
+        setApiFromCity(city.iata_code);
+        // arrivalAirportIata(city.iata_code);
+      }
+      // Selects the `#cityToInput` element from the DOM.
+      const cityToInput = document.querySelector("#cityToInput");
+  
+      // This adds an `input` event listener to the `#cityFromInput` element that calls the `handleFromInputChange` function
+      // whenever the input value changes.
+      cityToInput.addEventListener("input", handleToInputChange);
+  
+      // return () => {
+      //   cityToInput.removeEventListener("input", handleToInputChange);
+      // };
+    }, []);
 
-  //Departure date eventListener
+  // Departure date eventListener - when the depart field changes it sets the new state
   function handleDepartDateChange(event) {
     setDepartDate(event.target.value);
   }
 
-  //Return date eventListener
+  // Return date eventListener - when the return date field changes it sets the state
   function handleReturnDateChange(event) {
     setReturnDate(event.target.value);
   }
-  //Cabin eventListener
+
+  // Cabin eventListener - when the cabin class changes it sets the new state or defaults to 'Economy'
   const handleCabinClassChange = (event) => {
     setFlightCabin(event.target.value);
   };
-  //Currency eventListener
+
+  // Currency eventListener - when the currency changes it sets the new state or defaults to 'USD'
   const handleCabinCurrencyChange = (event) => {
     setFlightCurrency(event.target.value);
   };
 
-  //Passenger function
+  // Passenger function - Event listener which listens to which passenger button is clicked and +/- and updates state
   const handleButtonClick = (event, passengerType) => {
     event.preventDefault();
     let value;
@@ -67,139 +161,33 @@ function Flights() {
         setInfants(value);
       }
     }
-  }
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      getTicketPrice();
-    };
+  };
 
-    //This is the final fetch using Flights API using the parameter values taken from the form.
-    const getTicketPrice = () => {
-      console.log(apiFromCity)
-      console.log(fromCity)
+  // Submit button which runs the function to fetch from Flights API
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getTicketPrice();
+  };
 
-      console.log(departDate)
-      console.log(returnDate)
-      console.log(adults)
-      console.log(children)
-      console.log(infants)
-      console.log(flightCabin)
-      console.log(flightCurrency)
-
-      let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
-      fetch(queryURL)
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-        });    
-      };
-
-
-
-  useEffect(() => {
-    function handleFromInputChange(event) {
-      const input = event.target.value;
-      // Fetch city suggestions from Airlabs API
-      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
-      fetch(queryURL)
-        .then((response) => response.json())
-        .then((response) => {
-          let cities = response.response.airports;
-
-          // Clear existing suggestions
-          setFromCity("");
-
-          // Add new suggestions to the datalist element.
-          const options = cities.map((city) => (
-            <option
-              key={`${city.name}-${city.iata_code}`}
-              value={`${city.name} ${city.iata_code}`}
-              onClick={() => handleOptionClick(city)}
-            >
-              {`${city.name} (${city.iata_code})`}
-            </option>
-          ));
-          //Updating options elements/setting state
-          setFromCity(options);
-        });
-    }
-
-    // This function is called when an `option` element is clicked and sets the `fromCity` and `departureAirportIata`
-    function handleOptionClick(city) {
-      setFromCity(city.iata_code);
-      // setDepartureAirportIata(city.iata_code);
-    }
-    // Selects the `#cityFromInput` element from the DOM.
-    const cityFromInput = document.querySelector("#cityFromInput");
-
-    // This adds an `input` event listener to the `#cityFromInput` element that calls the `handleFromInputChange` function
-    // whenever the input value changes.
-
-    cityFromInput.addEventListener("input", handleFromInputChange);
-  }, []);
-
-  useEffect(() => {
-    function handleToInputChange(event) {
-      const input = event.target.value;
-      console.log(input);
-      // Fetch city suggestions from Airlabs API
-      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
-      fetch(queryURL)
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(input);
-          console.log(response);
-          let cities = response.response.airports;
-
-          // Clear existing suggestions
-          setApiFromCity("");
-
-          // Add new suggestions to the datalist element.
-          const options = cities.map((city) => (
-            <option
-              key={`${city.name}-${city.iata_code}`}
-              value={`${city.name} ${city.iata_code}`}
-              onClick={() => handleOptionClick(city)}
-            >
-              {`${city.name} (${city.iata_code})`}
-            </option>
-          ));
-          //Updating options element/setting state
-          setApiFromCity(options);
-        });
-    }
-    // This function is called when an `option` element is clicked and sets the `apiFromCity` and `departureAirportIata`
-
-    function handleOptionClick(city) {
-      console.log(city);
-      setApiFromCity(city.iata_code);
-      // arrivalAirportIata(city.iata_code);
-    }
-    // Selects the `#cityToInput` element from the DOM.
-    const cityToInput = document.querySelector("#cityToInput");
-
-    // This adds an `input` event listener to the `#cityFromInput` element that calls the `handleFromInputChange` function
-    // whenever the input value changes.
-    cityToInput.addEventListener("input", handleToInputChange);
-
-    // return () => {
-    //   cityToInput.removeEventListener("input", handleToInputChange);
-    // };
-  }, []);
+  //This is the final fetch using Flights API using the parameter values taken from the form.
+  const getTicketPrice = () => {
+    let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
+    fetch(queryURL)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+      });
+  };
 
   //Checking whether the state variables have been properly updated to be used for generating cards.
-  useEffect(() => {
-    console.log(fromCity);
-  }, [fromCity]);
-  useEffect(() => {
-    console.log(apiFromCity);
-  }, [apiFromCity]);
+  // useEffect(() => {
+  // }, [fromCity]);
+  // useEffect(() => {
+  //   console.log(apiFromCity);
+  // }, [apiFromCity]);
 
-  useEffect(() => {
-    console.log(departDate);
-    console.log(returnDate);
-  }, [departDate, returnDate]);
+  // useEffect(() => {
+  // }, [departDate, returnDate]);
 
   return (
     <>
@@ -211,13 +199,18 @@ function Flights() {
       {/*From input field */}
       <label htmlFor="cityFromInput">From</label>
       <input type="text" id="cityFromInput" list="cityFromSuggestidons" />
+
       {/*Generated options for change of state*/}
       <datalist id="cityFromSuggestions">{fromCity}</datalist>
+
       {/*To input field */}
       <label htmlFor="cityFromInput">To</label>
       <input type="text" id="cityToInput" list="cityToInput" />
+
       {/*Generated options for change of state*/}
       <datalist id="cityToSuggestions">{apiFromCity}</datalist>
+
+      {/*Departure date*/}
       <label htmlFor="departDateInput">Departure date:</label>
       <input
         type="date"
@@ -225,6 +218,7 @@ function Flights() {
         onChange={handleDepartDateChange}
       />
 
+      {/*Return date*/}
       <label htmlFor="returnDateInput">Return date:</label>
       <input
         type="date"
@@ -232,7 +226,8 @@ function Flights() {
         onChange={handleReturnDateChange}
       />
 
-<label htmlFor="cabinClass">Cabin Class</label>
+      {/*Cabin Class Selection*/}
+      <label htmlFor="cabinClass">Cabin Class</label>
       <select
         id="cabinClass"
         value={flightCabin}
@@ -243,7 +238,7 @@ function Flights() {
         <option value="First">First Class</option>
       </select>
 
-      {/* Cabin currency selection */}
+      {/* Currency Selection */}
       <label htmlFor="cabinCurrency">Currency</label>
       <select
         id="cabinCurrency"
@@ -256,26 +251,75 @@ function Flights() {
         {/* Add more currency options as needed */}
       </select>
 
+      {/* Passenger selection */}
       <div id="passengerDiv">
-      <div>
-        <button onClick={(e) => handleButtonClick(e, "adults")} className="minus-btn">-</button>
-        <input type="text" className="passenger-input" data-type="adults" value={adults} readOnly />
-        <button onClick={(e) => handleButtonClick(e, "adults")} className="plus-btn">+</button>
+        <div>
+          <button
+            onClick={(e) => handleButtonClick(e, "adults")}
+            className="minus-btn"
+          >
+            -
+          </button>
+          <input
+            type="text"
+            className="passenger-input"
+            data-type="adults"
+            value={adults}
+            readOnly
+          />
+          <button
+            onClick={(e) => handleButtonClick(e, "adults")}
+            className="plus-btn"
+          >
+            +
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={(e) => handleButtonClick(e, "children")}
+            className="minus-btn"
+          >
+            -
+          </button>
+          <input
+            type="text"
+            className="passenger-input"
+            data-type="children"
+            value={children}
+            readOnly
+          />
+          <button
+            onClick={(e) => handleButtonClick(e, "children")}
+            className="plus-btn"
+          >
+            +
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={(e) => handleButtonClick(e, "infants")}
+            className="minus-btn"
+          >
+            -
+          </button>
+          <input
+            type="text"
+            className="passenger-input"
+            data-type="infants"
+            value={infants}
+            readOnly
+          />
+          <button
+            onClick={(e) => handleButtonClick(e, "infants")}
+            className="plus-btn"
+          >
+            +
+          </button>
+        </div>
       </div>
-      <div>
-        <button onClick={(e) => handleButtonClick(e, "children")} className="minus-btn">-</button>
-        <input type="text" className="passenger-input" data-type="children" value={children} readOnly />
-        <button onClick={(e) => handleButtonClick(e, "children")} className="plus-btn">+</button>
-      </div>
-      <div>
-        <button onClick={(e) => handleButtonClick(e, "infants")} className="minus-btn">-</button>
-        <input type="text" className="passenger-input" data-type="infants" value={infants} readOnly />
-        <button onClick={(e) => handleButtonClick(e, "infants")} className="plus-btn">+</button>
-      </div>
-    </div>
       <button className="subtBtn" onClick={handleSubmit}>
-          Submit
-        </button>
+        Submit
+      </button>
     </>
   );
 }
