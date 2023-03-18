@@ -1,7 +1,9 @@
 import React from "react";
+import "../styles/home.css";
+import Map from "./Map";
 
 function Home() {
-  return <div>Test</div>;
+  return <Map />;
 }
 
 export default Home;

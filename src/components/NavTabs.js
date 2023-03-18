@@ -26,7 +26,7 @@ function NavTabs() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
             <NavLink
-              to="/react-portfolio-hg"
+              to="/"
               end
               className={({ isActive }) =>
                 isActive ? "nav-link active" : "nav-link"

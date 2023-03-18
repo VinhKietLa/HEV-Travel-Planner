@@ -3,6 +3,7 @@ import NavTabs from "./components/NavTabs";
 import Home from "./components/Home";
 import Flights from "./components/Flights";
 import CoolPlaces from "./components/CoolPlaces";
+import Map from "./components/Map";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
