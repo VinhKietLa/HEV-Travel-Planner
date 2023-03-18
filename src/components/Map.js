@@ -5,11 +5,14 @@ import {
   Marker,
   useJsApiLoader,
 } from "@react-google-maps/api";
+import "../styles/map.css";
 
 const containerStyle = {
-  width: "95%",
+  width: "90%",
   height: "50vh",
   margin: "0 auto",
+  marginTop: "50px",
+  border: "5px solid rgb(245, 177, 114)",
 };
 
 const center = {
@@ -73,15 +76,27 @@ function Map() {
       >
         {markerPosition && <Marker position={markerPosition} />}
       </GoogleMap>
-      <h1>Pick a location on the map or enter your desired destination</h1>
-      <h3>Your Selected Destination:</h3>
-      <h2 style={{ border: "1px solid gray", height: "50px" }}>{result}</h2>
+      <div className="loc-info">
+        <h2>Pick a location on the map or enter your desired destination</h2>
+        <h3>Your Selected Destination:</h3>
+        <h4
+          style={{
+            border: "1px solid gray",
+            height: "35px",
+            width: "40%",
+            margin: "0 auto",
+          }}
+        >
+          {result}
+        </h4>
+      </div>
 
+      {/* 
       <div>
         <p>Latitude: {latitude}</p>
         <p>Longitude: {longitude}</p>
         <p>Nearest city: {result}</p>
-      </div>
+      </div> */}
     </div>
   ) : (
     <></>
