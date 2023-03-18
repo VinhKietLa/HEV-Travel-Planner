@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   GoogleMap,
   LoadScript,
@@ -30,6 +31,12 @@ function Map() {
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE",
   });
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/places-to-see");
+  };
 
   const onMapClick = async (e) => {
     const latitude = e.latLng.lat();
@@ -82,15 +89,38 @@ function Map() {
         <h4
           style={{
             border: "1px solid gray",
-            height: "35px",
-            width: "40%",
+            height: "30px",
+            width: "30%",
             margin: "0 auto",
           }}
         >
           {result}
         </h4>
+        <button onClick={handleButtonClick}>FIND PLACES TO SEE</button>
       </div>
 
+      <div className="loc-search">
+        <form id="search-form" class="input-group mb-4 border p-1">
+          <input
+            id="textbox"
+            type="search"
+            placeholder="Region, city (e.g. London)"
+            aria-describedby="button-search"
+            class="form-control bg-none border-0"
+          />
+          <div class="input-group-prepend border-0">
+            <button
+              onClick={handleButtonClick}
+              id="button-search"
+              type="submit"
+              class="btn btn-link"
+            >
+              {" "}
+              GO!
+            </button>
+          </div>
+        </form>
+      </div>
       {/* 
       <div>
         <p>Latitude: {latitude}</p>

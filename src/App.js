@@ -3,7 +3,6 @@ import NavTabs from "./components/NavTabs";
 import Home from "./components/Home";
 import Flights from "./components/Flights";
 import CoolPlaces from "./components/CoolPlaces";
-import Map from "./components/Map";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
           {/* Define routes using the Route component to render different page components at different paths */}
           {/* Define a default route that will render the Home component */}
           <Route path="/" element={<Home />} exact />
-          <Route path="/CoolPlaces" element={<CoolPlaces />} />
+          <Route path="/places-to-see" element={<CoolPlaces />} />
           <Route path="/flights" element={<Flights />} />
         </Routes>
       </div>
