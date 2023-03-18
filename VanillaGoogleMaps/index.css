@@ -18,6 +18,10 @@
     padding: 0;
   }
 
+  #autoComplete {
+    color:black;
+  }
+
   #cityFromSuggestions {
     display: block;
     position: absolute;
