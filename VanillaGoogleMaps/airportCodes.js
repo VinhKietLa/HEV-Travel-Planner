@@ -130,21 +130,6 @@ returnDateInput.addEventListener("input", (event) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //PASSENGER BUTTONS//
 
 //object with passenger keys
@@ -186,17 +171,7 @@ passengerDiv.addEventListener("click", (event) => {
   // console.log(passengerValues); // Log the updated passengerValues object
 });
 
-const submitFormButton = document.querySelector(".subtBtn");
-submitFormButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  const { adults, children, infants } = passengerValues;
-  numberOfAdults = adults;
-  numberOfChildren = children;
-  numberofInfants = infants;
-  // Use passengerValues object in API call or other logic
 
-  getTicketPrice();
-});
 
 //CABIN CLASS SELECTION
 const cabinClassSelect = document.getElementById("cabinClass");
@@ -232,6 +207,18 @@ cabinCurrencySelect.addEventListener("change", (event) => {
   selectedCabinCurrency = event.target.value;
   console.log(selectedCabinCurrency);
   flightCurrency = selectedCabinCurrency;
+});
+
+const submitFormButton = document.querySelector(".subtBtn");
+submitFormButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  const { adults, children, infants } = passengerValues;
+  numberOfAdults = adults;
+  numberOfChildren = children;
+  numberofInfants = infants;
+  // Use passengerValues object in API call or other logic
+
+  getTicketPrice();
 });
 
 //FLIGHT API PRICE - GET FLIGHT PRICE//
