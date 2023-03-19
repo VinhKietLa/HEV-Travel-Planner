@@ -28,7 +28,7 @@ function Flights() {
     function handleFromInputChange(event) {
       const input = event.target.value;
       // Fetch city suggestions from Airlabs API
-      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
+      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&lang=en&api_key=11f9f1df-8234-4590-bcb9-1c6df28a39c5`;
       fetch(queryURL)
         .then((response) => response.json())
         .then((response) => {
@@ -70,14 +70,11 @@ function Flights() {
   useEffect(() => {
     function handleToInputChange(event) {
       const input = event.target.value;
-      console.log(input);
       // Fetch city suggestions To Airlabs API
-      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&api_key=9dc705cb-3e98-479d-9e62-a38e26bc2f97`;
+      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&lang=en&api_key=11f9f1df-8234-4590-bcb9-1c6df28a39c5`;
       fetch(queryURL)
         .then((response) => response.json())
         .then((response) => {
-          console.log(input);
-          console.log(response);
           let cities = response.response.airports;
 
           // Clear existing suggestions
@@ -171,43 +168,41 @@ function Flights() {
     return (
       <div className="card" style={{ width: "18rem" }}>
         <div className="card-body">
-          <h3 className="card-title">Airline Code: ${flight.airlineCodes}</h3>
+          {/* Departure */}
+          <h4 className="card-title">
+            Airline Code: {flight.departureAirport.code}
+          </h4>
           <p className="card-text">
-            Arrival Airport: ${flight.arrivalAirportCode}
+            Departure Airport: {flight.departureAirport.name}
           </p>
+          {/* Arrival */}
+          <h4 className="card-title">
+            Airline Code: {flight.arrivalAirport.code}
+          </h4>
           <p className="card-text">
-            Arrival Date + Time: ${flight.arrivalDateTime}
+            Arrival Airport: {flight.arrivalAirport.name}
           </p>
-          <p className="card-text">Arrival Time: ${flight.arrivalTime}</p>
-
-          <p className="card-text">
-            Departure Airport: ${flight.departureAirportCode}
-          </p>
-          <p className="card-text">
-            Departure Date Time: ${flight.departureDateTime}
-          </p>
-          <p className="card-text">Arrival Time: ${flight.arrivalTime}</p>
-          <p className="card-text">Flight Duration: ${flight.duration}</p>
-
-          <p className="card-text">Stopçover Count: ${flight.stopoversCount}</p>
-
+          <p className="card-text">Depart Date: {flight.outboundDate}</p>
+  
           {/* Book now links do not work, maybe workout a way to use the objects to search using a skyscanner URL? */}
-          <a href="${flight.handoffUrl}" className="btn btn-primary">
-            Book Now
-          </a>
+          {/* <a href={flight.fares[0][0].handoffUrl} className="btn btn-primary">
+              Book Now
+            </a> */}
         </div>
       </div>
     );
   }
+  
   // This fetches from the Flights API using the variable states from the completed form.
   const getTicketPrice = () => {
     // Fetching data and setting the state
     let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
+    console.log(queryURL);
     fetch(queryURL)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        setFlightData(response.legs);
+        setFlightData(response.search.legs);
       });
   };
 
@@ -220,18 +215,28 @@ function Flights() {
   return (
     <>
       <div>
-        <h1 className="heading">Airfare Search </h1>
+        <h1 className="heading">Fare Search </h1>
       </div>
 
       <div className="input-group">
         {/*From input field */}
-        <input type="text" id="cityFromInput" list="cityFromSuggestidons" placeholder="From" />
+        <input
+          type="text"
+          id="cityFromInput"
+          list="cityFromSuggestidons"
+          placeholder="From"
+        />
 
         {/*Generated options for change of state*/}
         <datalist id="cityFromSuggestions">{fromCity}</datalist>
 
         {/*To input field */}
-        <input type="text" id="cityToInput" list="cityToInput" placeholder="To"/>
+        <input
+          type="text"
+          id="cityToInput"
+          list="cityToInput"
+          placeholder="To"
+        />
 
         {/*Generated options for change of state*/}
         <datalist id="cityToSuggestions">{apiFromCity}</datalist>
@@ -401,11 +406,11 @@ function Flights() {
         </button>
 
         {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
-        <div id="FlightResults">
-          {flightData.map((flight) => (
-            <FlightCard key={flight.id} flight={flight} />
-          ))}
-        </div>
+        <div id="FlightResults ">
+        {flightData.map((flight) => (
+          <FlightCard key={flight.id} flight={flight} />
+        ))}
+      </div>
       </div>
     </>
   );
