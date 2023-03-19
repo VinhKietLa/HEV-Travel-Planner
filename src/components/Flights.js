@@ -183,7 +183,7 @@ function Flights() {
             Arrival Airport: {flight.arrivalAirport.name}
           </p>
           <p className="card-text">Depart Date: {flight.outboundDate}</p>
-  
+
           {/* Book now links do not work, maybe workout a way to use the objects to search using a skyscanner URL? */}
           {/* <a href={flight.fares[0][0].handoffUrl} className="btn btn-primary">
               Book Now
@@ -192,7 +192,7 @@ function Flights() {
       </div>
     );
   }
-  
+
   // This fetches from the Flights API using the variable states from the completed form.
   const getTicketPrice = () => {
     // Fetching data and setting the state
@@ -246,6 +246,7 @@ function Flights() {
         <input
           type="date"
           id="departDateInput"
+          className="ms-2"
           onChange={handleDepartDateChange}
         />
 
@@ -254,13 +255,14 @@ function Flights() {
         <input
           type="date"
           id="returnDateInput"
+          className="ms-2"
           onChange={handleReturnDateChange}
         />
 
         {/* Cabin/Class Button */}
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary ms-2"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
         >
@@ -279,7 +281,7 @@ function Flights() {
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                  Modal title
+                  Choose your cabin class and currency{" "}
                 </h1>
                 <button
                   type="button"
@@ -392,8 +394,10 @@ function Flights() {
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary"
+                  data-bs-dismiss="modal">
                   Ok
+                  
                 </button>
               </div>
             </div>
@@ -401,16 +405,16 @@ function Flights() {
         </div>
 
         {/* Form Submit Button */}
-        <button className="btn btn-secondary" onClick={handleSubmit}>
+        <button className="btn btn-secondary ms-2" onClick={handleSubmit}>
           Lets Fly!
         </button>
 
         {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
         <div id="FlightResults ">
-        {flightData.map((flight) => (
-          <FlightCard key={flight.id} flight={flight} />
-        ))}
-      </div>
+          {flightData.map((flight) => (
+            <FlightCard key={flight.id} flight={flight} />
+          ))}
+        </div>
       </div>
     </>
   );
