@@ -20,10 +20,8 @@ function Flights() {
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
 
-
   //Hook for generating cards from Flights API
   const [flightData, setFlightData] = useState([]);
-
 
   // Fetch city from Airlabs API.
   useEffect(() => {
@@ -168,190 +166,248 @@ function Flights() {
     }
   };
 
-
   // Function creates the reactbootstrap cards, destructing and passing the object from the Flights API instead of using props e.g props.flight.airlineCodes.
   function FlightCard({ flight }) {
     return (
-      <div className="card" style={{ width: '18rem' }}>
+      <div className="card" style={{ width: "18rem" }}>
         <div className="card-body">
-        <h3 className="card-title">Airline Code: ${flight.airlineCodes}</h3>
-        <p className="card-text">Arrival Airport: ${flight.arrivalAirportCode}</p>
-        <p className="card-text">Arrival Date + Time: ${flight.arrivalDateTime}</p>
-        <p className="card-text">Arrival Time: ${flight.arrivalTime}</p>
+          <h3 className="card-title">Airline Code: ${flight.airlineCodes}</h3>
+          <p className="card-text">
+            Arrival Airport: ${flight.arrivalAirportCode}
+          </p>
+          <p className="card-text">
+            Arrival Date + Time: ${flight.arrivalDateTime}
+          </p>
+          <p className="card-text">Arrival Time: ${flight.arrivalTime}</p>
 
-        <p className="card-text">Departure Airport: ${flight.departureAirportCode}</p>
-        <p className="card-text">Departure Date Time: ${flight.departureDateTime}</p>
-        <p className="card-text">Arrival Time: ${flight.arrivalTime}</p>
-        <p className="card-text">Flight Duration: ${flight.duration}</p>
+          <p className="card-text">
+            Departure Airport: ${flight.departureAirportCode}
+          </p>
+          <p className="card-text">
+            Departure Date Time: ${flight.departureDateTime}
+          </p>
+          <p className="card-text">Arrival Time: ${flight.arrivalTime}</p>
+          <p className="card-text">Flight Duration: ${flight.duration}</p>
 
-        <p className="card-text">Stopover Count: ${flight.stopoversCount}</p>
+          <p className="card-text">Stopçover Count: ${flight.stopoversCount}</p>
 
-      {/* Book now links do not work, maybe workout a way to use the objects to search using a skyscanner URL? */}
-        <a href="${flight.handoffUrl}" className="btn btn-primary">Book Now</a>
-        </div> 
+          {/* Book now links do not work, maybe workout a way to use the objects to search using a skyscanner URL? */}
+          <a href="${flight.handoffUrl}" className="btn btn-primary">
+            Book Now
+          </a>
+        </div>
       </div>
     );
   }
-    // This fetches from the Flights API using the variable states from the completed form.
-    const getTicketPrice = () => {
-      // Fetching data and setting the state
-      let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
-      fetch(queryURL)
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-          setFlightData(response.legs);
-        });
-    };
-  
+  // This fetches from the Flights API using the variable states from the completed form.
+  const getTicketPrice = () => {
+    // Fetching data and setting the state
+    let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
+    fetch(queryURL)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setFlightData(response.legs);
+      });
+  };
+
   // This handleSubmit executes getTicketPrice to create cards with Flights API information.
   const handleSubmit = (event) => {
     event.preventDefault();
     getTicketPrice(); // Changed from Flights to getTicketPrice
   };
 
-
   return (
     <>
       <div>
-        <h1 className="heading">Ready to Fly?</h1>
-      </div>
-      <h2 className="heading">What city are you flying from?</h2>
-
-      {/*From input field */}
-      <label htmlFor="cityFromInput">From</label>
-      <input type="text" id="cityFromInput" list="cityFromSuggestidons" />
-
-      {/*Generated options for change of state*/}
-      <datalist id="cityFromSuggestions">{fromCity}</datalist>
-
-      {/*To input field */}
-      <label htmlFor="cityFromInput">To</label>
-      <input type="text" id="cityToInput" list="cityToInput" />
-
-      {/*Generated options for change of state*/}
-      <datalist id="cityToSuggestions">{apiFromCity}</datalist>
-
-      {/*Departure date*/}
-      <label htmlFor="departDateInput">Departure date:</label>
-      <input
-        type="date"
-        id="departDateInput"
-        onChange={handleDepartDateChange}
-      />
-
-      {/*Return date*/}
-      <label htmlFor="returnDateInput">Return date:</label>
-      <input
-        type="date"
-        id="returnDateInput"
-        onChange={handleReturnDateChange}
-      />
-
-      {/*Cabin className Selection*/}
-      <label htmlFor="cabinclassName">Cabin className</label>
-      <select
-        id="cabinclassName"
-        value={flightCabin}
-        onChange={handleCabinclassNameChange}
-      >
-        <option value="Economy">Economy</option>
-        <option value="Business">Business</option>
-        <option value="First">First className</option>
-      </select>
-
-      {/* Currency Selection */}
-      <label htmlFor="cabinCurrency">Currency</label>
-      <select
-        id="cabinCurrency"
-        value={flightCurrency}
-        onChange={handleCabinCurrencyChange}
-      >
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        {/* Add more currency options as needed */}
-      </select>
-
-      {/* Passenger selection */}
-      <div id="passengerDiv">
-        <div>
-          <button
-            onClick={(e) => handleButtonClick(e, "adults")}
-            className="minus-btn"
-          >
-            -
-          </button>
-          <input
-            type="text"
-            className="passenger-input"
-            data-type="adults"
-            value={adults}
-            readOnly
-          />
-          <button
-            onClick={(e) => handleButtonClick(e, "adults")}
-            className="plus-btn"
-          >
-            +
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={(e) => handleButtonClick(e, "children")}
-            className="minus-btn"
-          >
-            -
-          </button>
-          <input
-            type="text"
-            className="passenger-input"
-            data-type="children"
-            value={children}
-            readOnly
-          />
-          <button
-            onClick={(e) => handleButtonClick(e, "children")}
-            className="plus-btn"
-          >
-            +
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={(e) => handleButtonClick(e, "infants")}
-            className="minus-btn"
-          >
-            -
-          </button>
-          <input
-            type="text"
-            className="passenger-input"
-            data-type="infants"
-            value={infants}
-            readOnly
-          />
-          <button
-            onClick={(e) => handleButtonClick(e, "infants")}
-            className="plus-btn"
-          >
-            +
-          </button>
-        </div>
+        <h1 className="heading">Airfare Search </h1>
       </div>
 
-      {/* Form Submit Button */}
-      <button className="subtBtn" onClick={handleSubmit}>
-        Submit
-      </button>
+      <div className="input-group">
+        {/*From input field */}
+        <input type="text" id="cityFromInput" list="cityFromSuggestidons" placeholder="From" />
 
-      {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
-      <div id="FlightResults">
-        {flightData.map((flight) => (
-          <FlightCard key={flight.id} flight={flight} />
-        ))}
-      </div>    
-      </>
+        {/*Generated options for change of state*/}
+        <datalist id="cityFromSuggestions">{fromCity}</datalist>
+
+        {/*To input field */}
+        <input type="text" id="cityToInput" list="cityToInput" placeholder="To"/>
+
+        {/*Generated options for change of state*/}
+        <datalist id="cityToSuggestions">{apiFromCity}</datalist>
+
+        {/*Departure date*/}
+        <label htmlFor="departDateInput">Depart:</label>
+        <input
+          type="date"
+          id="departDateInput"
+          onChange={handleDepartDateChange}
+        />
+
+        {/*Return date*/}
+        <label htmlFor="returnDateInput">Return:</label>
+        <input
+          type="date"
+          id="returnDateInput"
+          onChange={handleReturnDateChange}
+        />
+
+        {/* Cabin/Class Button */}
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Cabin Class and Currency
+        </button>
+        <div
+          class="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                  Modal title
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                {/*Cabin Class Selection*/}
+                <label htmlFor="cabinclassName">Cabin Class:</label>
+                <select
+                  id="cabinclassName"
+                  value={flightCabin}
+                  onChange={handleCabinclassNameChange}
+                >
+                  <option value="Economy">Economy</option>
+                  <option value="Business">Business</option>
+                  <option value="First">First className</option>
+                </select>
+              </div>
+
+              {/* Currency Selection */}
+              <label htmlFor="cabinCurrency">Currency</label>
+              <select
+                id="cabinCurrency"
+                value={flightCurrency}
+                onChange={handleCabinCurrencyChange}
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                {/* Add more currency options as needed */}
+              </select>
+
+              {/* Passenger selection */}
+              <div id="passengerDiv">
+                <div>
+                  <span>Adult</span>
+                  <button
+                    onClick={(e) => handleButtonClick(e, "adults")}
+                    className="minus-btn"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    className="passenger-input"
+                    data-type="adults"
+                    value={adults}
+                    readOnly
+                  />
+                  <button
+                    onClick={(e) => handleButtonClick(e, "adults")}
+                    className="plus-btn"
+                  >
+                    +
+                  </button>
+                </div>
+                <div>
+                  <span>Child</span>
+                  <button
+                    onClick={(e) => handleButtonClick(e, "children")}
+                    className="minus-btn"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    className="passenger-input"
+                    data-type="children"
+                    value={children}
+                    readOnly
+                  />
+                  <button
+                    onClick={(e) => handleButtonClick(e, "children")}
+                    className="plus-btn"
+                  >
+                    +
+                  </button>
+                </div>
+                <div>
+                  <span>Infant</span>
+                  <button
+                    onClick={(e) => handleButtonClick(e, "infants")}
+                    className="minus-btn"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    className="passenger-input"
+                    data-type="infants"
+                    value={infants}
+                    readOnly
+                  />
+                  <button
+                    onClick={(e) => handleButtonClick(e, "infants")}
+                    className="plus-btn"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Ok
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Form Submit Button */}
+        <button className="btn btn-secondary" onClick={handleSubmit}>
+          Lets Fly!
+        </button>
+
+        {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
+        <div id="FlightResults">
+          {flightData.map((flight) => (
+            <FlightCard key={flight.id} flight={flight} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 
