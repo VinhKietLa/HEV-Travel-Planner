@@ -1,0 +1,17 @@
+h2 {
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.loc-info,
+.loc-search {
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import "../styles/map.css";
 import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  useJsApiLoader,
-} from "@react-google-maps/api";
+  firstLoad,
+  loadList,
+  locationFormsubmit,
+  mapFormSubmit,
+} from "./otmLocationGet/location";
 
 const containerStyle = {
-  width: "95%",
+  width: "90%",
   height: "50vh",
   margin: "0 auto",
+  marginTop: "50px",
+  border: "5px solid rgb(245, 177, 114)",
 };
 
 const center = {
@@ -28,6 +33,25 @@ function Map() {
     googleMapsApiKey: "AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE",
   });
 
+  const navigate = useNavigate();
+
+  // map pin location search
+  const handleButtonClick = () => {
+    navigate("/places-to-see");
+
+    firstLoad();
+    loadList();
+    mapFormSubmit({ latitude }, { longitude });
+  };
+
+  // search by location
+  const handleFormSumit = () => {
+    navigate("/places-to-see");
+
+    loadList();
+    locationFormsubmit();
+  };
+
   const onMapClick = async (e) => {
     const latitude = e.latLng.lat();
     const longitude = e.latLng.lng();
@@ -35,7 +59,7 @@ function Map() {
     setLatitude(latitude);
     setLongitude(longitude);
 
-    const geocoder = new window.google.maps.Geocoder();
+    let geocoder = new window.google.maps.Geocoder();
     geocoder.geocode(
       { location: { lat: latitude, lng: longitude } },
       function (results, status) {
@@ -59,6 +83,7 @@ function Map() {
           console.error("Geocode failed", status);
           setMarkerPosition({ lat: latitude, lng: longitude });
         }
+        mapFormSubmit(latitude, longitude);
       }
     );
   };
@@ -73,15 +98,51 @@ function Map() {
       >
         {markerPosition && <Marker position={markerPosition} />}
       </GoogleMap>
-      <h1>Pick a location on the map or enter your desired destination</h1>
-      <h3>Your Selected Destination:</h3>
-      <h2 style={{ border: "1px solid gray", height: "50px" }}>{result}</h2>
+      <div className="loc-info">
+        <h2>Pick a location on the map or enter your desired destination</h2>
+        <h3>Your Selected Destination:</h3>
+        <h4
+          className="map-loc"
+          style={{
+            border: "1px solid gray",
+            height: "30px",
+            width: "30%",
+            margin: "0 auto",
+          }}
+        >
+          {result}
+        </h4>
+        <button onClick={handleButtonClick}>FIND PLACES TO SEE</button>
+      </div>
 
+      <div className="loc-search">
+        <form id="search-form" class="input-group mb-4 border p-1">
+          <input
+            id="textbox"
+            type="search"
+            placeholder="Region, city (e.g. London)"
+            aria-describedby="button-search"
+            class="form-control bg-none border-0"
+          />
+          <div class="input-group-prepend border-0">
+            <button
+              onClick={handleFormSumit}
+              id="button-search"
+              type="submit"
+              class="btn btn-link"
+            >
+              {" "}
+              GO!
+            </button>
+          </div>
+        </form>
+      </div>
+      {/* 
       <div>
         <p>Latitude: {latitude}</p>
         <p>Longitude: {longitude}</p>
         <p>Nearest city: {result}</p>
-      </div>
+      </div> */}
     </div>
   ) : (
     <></>
