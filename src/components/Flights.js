@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/flights.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Card from 'react-bootstrap/Card';
+
 
 function Flights() {
   // From and To hooks
@@ -166,6 +168,7 @@ function Flights() {
   // Function creates the reactbootstrap cards, destructing and passing the object from the Flights API instead of using props e.g props.flight.airlineCodes.
   function FlightCard({ flight }) {
     return (
+      <>
       <div className="card" style={{ width: "18rem" }}>
         <div className="card-body">
           {/* Departure */}
@@ -190,8 +193,26 @@ function Flights() {
             </a> */}
         </div>
       </div>
+      </>
     );
   }
+
+  function TestCard() {
+    return (
+      <>
+      <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Body>
+        <Card.Title>Card Title</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </Card.Text>
+      </Card.Body>
+    </Card>
+    </>
+    )
+  };
 
   // This fetches from the Flights API using the variable states from the completed form.
   const getTicketPrice = () => {
@@ -416,6 +437,9 @@ function Flights() {
           ))}
         </div>
       </div>
+
+      <TestCard/>
+
     </>
   );
 }
