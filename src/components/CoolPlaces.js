@@ -1,20 +1,33 @@
 import React from "react";
+import "../styles/coolPlaces.css";
+import { nextBtn, loadList } from "./otmLocationGet/location";
 
 function CoolPlaces() {
+  const handleNextButton = () => {
+    nextBtn();
+    loadList();
+  };
+
   return (
     <>
-      <div id="info" class="alert alert-primary"></div>
-      <div class="row">
-        <div class="col-12 col-lg-5">
-          <div id="list" class="list-group"></div>
-          <nav class="text-center">
-            <button id="next_button" type="button" class="btn btn-primary">
+      <div id="info" className="alert alert-secondary"></div>
+
+      <div className="row justify-content-center">
+        <div className="col-12 col-lg-8">
+          <div id="list" className="list-group"></div>
+          <nav className="text-center">
+            <button
+              onClick={handleNextButton}
+              id="next_button"
+              type="button"
+              className="btn btn-secondary"
+            >
               Next
             </button>
           </nav>
         </div>
-        <div class="col-12 col-lg-7">
-          <div id="poi" class="alert"></div>
+        <div className="card col-12 col-lg-8 text-center">
+          <div id="poi" className="alert card-text"></div>
         </div>
       </div>
     </>

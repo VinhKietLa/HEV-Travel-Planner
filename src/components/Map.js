@@ -39,9 +39,14 @@ function Map() {
   const handleButtonClick = () => {
     navigate("/places-to-see");
 
-    firstLoad();
-    loadList();
-    mapFormSubmit({ latitude }, { longitude });
+    firstLoad(latitude, longitude);
+    loadList(latitude);
+    console.log(
+      "line 45 map form submit call",
+      markerPosition.lat,
+      markerPosition.lng
+    );
+    mapFormSubmit(markerPosition.lat, markerPosition.lng);
   };
 
   // search by location
@@ -83,7 +88,8 @@ function Map() {
           console.error("Geocode failed", status);
           setMarkerPosition({ lat: latitude, lng: longitude });
         }
-        mapFormSubmit(latitude, longitude);
+        console.log("from mapjs line 86", latitude, longitude);
+        mapFormSubmit(latitude.toFixed(5), longitude.toFixed(5));
       }
     );
   };
@@ -104,45 +110,52 @@ function Map() {
         <h4
           className="map-loc"
           style={{
-            border: "1px solid gray",
-            height: "30px",
+            border: "1px solid rgb(215, 211, 211)",
+            height: "45px",
             width: "30%",
             margin: "0 auto",
+            marginBottom: "20px",
           }}
         >
           {result}
         </h4>
-        <button onClick={handleButtonClick}>FIND PLACES TO SEE</button>
+        <button
+          id="button-search"
+          type="submit"
+          className="btn btn-secondary"
+          onClick={handleButtonClick}
+        >
+          Take me there!
+        </button>
       </div>
 
       <div className="loc-search">
-        <form id="search-form" class="input-group mb-4 border p-1">
+        <form id="search-form" className="input-group mb-4 border p-1">
           <input
             id="textbox"
             type="search"
             placeholder="Region, city (e.g. London)"
             aria-describedby="button-search"
-            class="form-control bg-none border-0"
+            className="form-control bg-none border-0"
           />
-          <div class="input-group-prepend border-0">
-            <button
-              onClick={handleFormSumit}
-              id="button-search"
-              type="submit"
-              class="btn btn-link"
-            >
-              {" "}
-              GO!
-            </button>
-          </div>
+          <div className="input-group-prepend border-0"></div>
         </form>
+        <button
+          onClick={handleFormSumit}
+          id="button-search"
+          type="submit"
+          className="btn btn-secondary"
+        >
+          {" "}
+          Take me there!
+        </button>
       </div>
-      {/* 
+
       <div>
         <p>Latitude: {latitude}</p>
         <p>Longitude: {longitude}</p>
         <p>Nearest city: {result}</p>
-      </div> */}
+      </div>
     </div>
   ) : (
     <></>
