@@ -66,3 +66,16 @@
   #cabinClassDiv {
     margin-top: 5rem;
   }
+
+  #departDateInput, #returnDateInput {
+    margin-left: 1rem;
+    vertical-align: middle;
+  }
+
+  .FlightsContainer{
+    border: 1px solid black;
+    margin-top: 10rem;
+  }
+  .row1 {
+    margin-bottom: 1rem;
+  }
