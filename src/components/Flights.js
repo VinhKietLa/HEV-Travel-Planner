@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../styles/flights.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Card from 'react-bootstrap/Card';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
+import airplane from "./assets/airplane.svg";
 
 function Flights() {
   // From and To hooks
@@ -169,52 +172,91 @@ function Flights() {
   function FlightCard({ flight }) {
     return (
       <>
-      <div className="card" style={{ width: "18rem" }}>
-        <div className="card-body">
-          {/* Departure */}
-          <h4 className="card-title">
-            Airline Code: {flight.departureAirport.code}
-          </h4>
-          <p className="card-text">
-            Departure Airport: {flight.departureAirport.name}
-          </p>
-          {/* Arrival */}
-          <h4 className="card-title">
-            Airline Code: {flight.arrivalAirport.code}
-          </h4>
-          <p className="card-text">
-            Arrival Airport: {flight.arrivalAirport.name}
-          </p>
-          <p className="card-text">Depart Date: {flight.outboundDate}</p>
+ <Container className="FlightsContainer">
+         
+          <Row className="row1">
+            <Col className="DepartingAirport">
+              <div>{flight.departureAirport.code}</div>
+              <div>{flight.departureAirport.name}</div>
+              <div>{flight.outboundDate}</div>
+            </Col>
+            <Col>
+              <img src={airplane}></img>
+            </Col>
 
-          {/* Book now links do not work, maybe workout a way to use the objects to search using a skyscanner URL? */}
-          {/* <a href={flight.fares[0][0].handoffUrl} className="btn btn-primary">
-              Book Now
-            </a> */}
-        </div>
-      </div>
+            <Col className="ArrivalAirport">
+              <div>{flight.arrivalAirport.code}</div>
+              <div>{flight.arrivalAirport.name}</div>
+              <div>{flight.outboundDate}</div>
+            </Col>
+          </Row>
+
+          <Row className="row2">
+            <Col className="DepartingAirport1">
+              <div>NRT</div>
+              <div>NEW REGIOTREN AIRPORTT</div>
+              <div>{flight.outboundDate}</div>
+            </Col>
+            <Col>
+              {" "}
+              <img src={airplane}></img>
+            </Col>
+
+            <Col className="ArrivalAirport1">
+              <div>NRT</div>
+              <div>NEW REGIOTREN AIRPORT</div>
+              <div>{flight.outboundDate}</div>
+            </Col>
+          </Row>
+</Container>
       </>
     );
   }
 
-  function TestCard() {
-    return (
-      <>
-      <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-      </Card.Body>
-    </Card>
-    </>
-    )
-  };
+  // function TestCard() {
+  //   return (
+  //     <>
+  //       <Container className="FlightsContainer">
+  //         <h2>Our Recommended Flight</h2>
+  //         <Row className="row1">
+  //           <Col className="DepartingAirport">
+  //             <div>{flight.departureAirport.code}</div>
+  //             <div>{flight.departureAirport.name}</div>
+  //           </Col>
+  //           <Col>
+  //             <img src={airplane}></img>
+  //           </Col>
+
+  //           <Col className="ArrivalAirport">
+  //             <div>{flight.arrivalAirport.code}</div>
+  //             <div>{flight.arrivalAirport.name}</div>
+  //           </Col>
+  //          <div>{flight.outboundDate}</div>
+  //         </Row>
+
+  //         <Row className="row2">
+  //           <Col className="DepartingAirport1">
+  //             <div>NRT</div>
+  //             <div>NEW REGIOTREN AIRPORTT</div>
+  //           </Col>
+  //           <Col>
+  //             {" "}
+  //             <img src={airplane}></img>
+  //           </Col>
+
+  //           <Col className="ArrivalAirport1">
+  //             <div>NRT</div>
+  //             <div>NEW REGIOTREN AIRPORT</div>
+  //           </Col>
+  //         </Row>
+  //       </Container>
+  //     </>
+  //   );
+  // }
 
   // This fetches from the Flights API using the variable states from the completed form.
+
+
   const getTicketPrice = () => {
     // Fetching data and setting the state
     let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
@@ -263,7 +305,7 @@ function Flights() {
         <datalist id="cityToSuggestions">{apiFromCity}</datalist>
 
         {/*Departure date*/}
-        <label htmlFor="departDateInput">Depart:</label>
+        <label htmlFor="departDateInput" id="departDateInput">Depart:</label>
         <input
           type="date"
           id="departDateInput"
@@ -272,7 +314,7 @@ function Flights() {
         />
 
         {/*Return date*/}
-        <label htmlFor="returnDateInput">Return:</label>
+        <label htmlFor="returnDateInput" id="returnDateInput">Return:</label>
         <input
           type="date"
           id="returnDateInput"
@@ -415,10 +457,12 @@ function Flights() {
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-primary"
-                  data-bs-dismiss="modal">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
                   Ok
-                  
                 </button>
               </div>
             </div>
@@ -437,8 +481,6 @@ function Flights() {
           ))}
         </div>
       </div>
-
-      <TestCard/>
 
     </>
   );
