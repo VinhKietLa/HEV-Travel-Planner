@@ -10,7 +10,11 @@ export function apiGet(method, query) {
     }
     fetch(otmAPI)
       .then((response) => response.json())
-      .then((data) => resolve(data))
+      .then((data) => {
+        // resolve(data);
+        console.log("from apiGet", data);
+        return resolve(data);
+      })
       .catch(function (err) {
         console.log("Fetch Error :-S", err);
       });
@@ -29,9 +33,10 @@ let offset = 0;
 let count;
 
 export function mapFormSubmit(latitude, longitude) {
+  console.log(latitude, longitude);
   apiGet(
     "radius",
-    `radius=1000&limit=${pageLength}&offset=${offset}&lon=${longitude}&lat=${latitude}&rate=2&format=count`
+    `radius=8000&limit=${pageLength}&offset=${offset}&lon=${longitude}&lat=${latitude}&rate=2&format=count`
   ).then(function (data) {
     console.log(data, "data");
     count = data.count;
@@ -51,6 +56,7 @@ export function locationFormsubmit() {
       message = data.name + ", " + data.country;
       lon = data.lon;
       lat = data.lat;
+
       firstLoad();
     }
     document.getElementById("info").innerHTML = `${message}`;

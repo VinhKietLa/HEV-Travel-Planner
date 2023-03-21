@@ -12,7 +12,7 @@ function CoolPlaces() {
     <>
       <div id="info" className="alert alert-secondary"></div>
 
-      <div className="column">
+      <div className="row justify-content-center">
         <div className="col-12 col-lg-8">
           <div id="list" className="list-group"></div>
           <nav className="text-center">
@@ -26,8 +26,8 @@ function CoolPlaces() {
             </button>
           </nav>
         </div>
-        <div className="col-12 col-lg-8">
-          <div id="poi" className="alert"></div>
+        <div className="card col-12 col-lg-8 text-center">
+          <div id="poi" className="alert card-text"></div>
         </div>
       </div>
     </>

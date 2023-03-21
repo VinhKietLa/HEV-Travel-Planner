@@ -41,7 +41,12 @@ function Map() {
 
     firstLoad(latitude, longitude);
     loadList(latitude);
-    mapFormSubmit(latitude, longitude);
+    console.log(
+      "line 45 map form submit call",
+      markerPosition.lat,
+      markerPosition.lng
+    );
+    mapFormSubmit(markerPosition.lat, markerPosition.lng);
   };
 
   // search by location
@@ -83,7 +88,8 @@ function Map() {
           console.error("Geocode failed", status);
           setMarkerPosition({ lat: latitude, lng: longitude });
         }
-        mapFormSubmit(latitude, longitude);
+        console.log("from mapjs line 86", latitude, longitude);
+        mapFormSubmit(latitude.toFixed(5), longitude.toFixed(5));
       }
     );
   };
