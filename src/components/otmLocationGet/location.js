@@ -141,3 +141,8 @@ export function onShowPOI(data) {
     ? data.info.descr
     : "No description";
 }
+
+export function nextBtn() {
+  offset += pageLength;
+  loadList();
+}
