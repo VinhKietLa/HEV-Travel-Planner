@@ -151,12 +151,6 @@ function Map() {
           Take me there!
         </button>
       </div>
-
-      {/* <div>
-        <p>Latitude: {latitude}</p>
-        <p>Longitude: {longitude}</p>
-        <p>Nearest city: {result}</p>
-      </div> */}
     </div>
   ) : (
     <></>
