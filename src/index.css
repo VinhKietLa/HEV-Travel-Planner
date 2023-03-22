@@ -17,12 +17,12 @@ body {
   margin: 0;
   height: 100%;
   background: linear-gradient(
-    159deg,
+    90deg,
     rgba(228, 111, 68, 1) 0%,
     rgba(232, 170, 155, 1) 52%
   );
   color: #1a385a !important;
-  height: 100vh;
+  height: 100% !important;
 }
 
 ul {
