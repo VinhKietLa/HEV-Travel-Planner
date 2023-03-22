@@ -1,9 +1,9 @@
 .nav-link {
-  font-family: sans-serif;
+  font-family: Alkatra, sans-serif;
   color: #fff;
   font-weight: 100;
   text-transform: uppercase;
-  color: white;
+  color: #1a385a;
   margin-right: 1rem;
   border-top: 3px solid transparent;
   font-size: 1.8rem !important;
@@ -16,20 +16,28 @@
 }
 
 .nav-link {
-  color: #fff !important;
+  color: #1a385a !important;
   text-decoration: none;
 }
 
 .nav-link.active,
 .nav-link:focus,
 .nav-link:hover {
-  border-top-color: rgb(255, 0, 0);
+  border-top-color: #1a385a;
 }
 .navbar {
-  background-color: rgb(245, 177, 114) !important;
+  background: linear-gradient(
+    159deg,
+    rgba(228, 111, 68, 1) 0%,
+    rgba(232, 170, 155, 1) 52%
+  );
   padding: 0 !important;
 }
 
 .nav-container .container {
-  background-color: transparent !important;
+  background: linear-gradient(
+    159deg,
+    rgba(228, 111, 68, 1) 0%,
+    rgba(232, 170, 155, 1) 52%
+  );
 }

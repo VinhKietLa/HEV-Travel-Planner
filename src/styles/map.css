@@ -4,7 +4,7 @@ h2 {
 }
 
 h3 {
-  margin-top: 20px;
+  margin-top: 28px !important;
   margin-bottom: 10px;
 }
 
@@ -12,7 +12,7 @@ h3 {
 .loc-search {
   margin: 0 auto;
   padding-top: 20px;
-  padding-bottom: 20px;
+
   text-align: center;
 }
 #search-form {
@@ -20,3 +20,9 @@ h3 {
   margin: 0 auto;
   color: rgb(215, 211, 211);
 }
+
+
+#button-search {
+  box-shadow: 0px 6px 6px 2px rgba(34, 27, 27, 0.549);
+}
+

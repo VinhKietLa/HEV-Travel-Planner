@@ -2,22 +2,27 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600&display=swap");
+
 :root {
   --background-color: ;
-  --primary-color: ;
-  --primary-color2-rgb: ;
-  --primary-color2-rgba: ;
-  --secondary-color: ;
-  --overlay-color: ;
+  --primary-color: #1a385a;
+  --primary-color1: #769abe;
+  --secondary-color: #e46f44;
+  --secondary-color2: #e8aa9b;
+  --accent: #dcd5dc;
 }
 
 body {
   margin: 0;
   height: 100%;
-  background-color: var(--bg-color) !important;
-  color: black !important;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300 !important;
+  background: linear-gradient(
+    159deg,
+    rgba(228, 111, 68, 1) 0%,
+    rgba(232, 170, 155, 1) 52%
+  );
+  color: #1a385a !important;
+  height: 100vh;
 }
 
 ul {
@@ -36,6 +41,6 @@ h4,
 h5,
 h6,
 p {
-  font-family: Roboto, sans-serif;
+  font-family: Alkatra, sans-serif;
   font-weight: 300;
 }
