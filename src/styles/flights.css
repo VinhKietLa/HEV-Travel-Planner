@@ -1,81 +1,86 @@
-.heading, #autoComplete {
-    color:black;
+.heading,
+#autoComplete {
+  color: black;
 }
 
-#cityFromInput, #cityToInput {
-  width: 250px;
+#cityFromInput,
+#cityToInput {
+  width: 350px;
+  height: 60px; /* Add a fixed height for the input element */
+  margin: 0.5rem;
 }
 
-#cityFromSuggestions {
-    display: block;
-    position: absolute;
-    z-index: 1;
-    max-height: 200px;
-    overflow-y: auto;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #ddd;
-    border-top: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width:250px;
-    top:39px;
-    overflow: hidden;
-  }
-  
-  #cityFromSuggestions option {
-    /* padding: 8px 12px; */
-    font-size: 14px;
-    line-height: 1.4;
-    color: #333;
-  }
-  
-  #cityFromSuggestions option:hover {
-    background-color: #f2f2f2;
-    cursor: pointer;
-  }
+#cityFromSuggestions,
+#cityToSuggestions {
+  display: block;
+  margin: 8px;
+  z-index: 1;
+  max-height: 70px;
+  width: 240px;
+  top: 39px;
+  right: 220px;
+  overflow-y: auto; /* Add overflow-y to make the datalist scrollable */
+  padding: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+}
 
-  #cityToSuggestions {
-    display: block;
-    position: absolute;
-    z-index: 1;
-    max-height: 200px;
-    overflow-y: auto;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-top: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width:250px;
-    left: 250px;
-    top: 39px;
-  }
-  
- #cityToSuggestions option {
-    /* padding: 8px 12px; */
-    font-size: 14px;
-    line-height: 1.4;
-    color: #333;
-  }
-  
- #cityToSuggestions option:hover {
-    background-color: #f2f2f2;
-    cursor: pointer;
-  }
+#cityFromSuggestions option,
+#cityToSuggestions option {
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  border: 1px solid black;
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
 
-  #cabinClassDiv {
-    margin-top: 5rem;
-  }
+#cityFromSuggestions,
+#cityToSuggestions {
+  display: none;
+}
 
-  #departDateInput, #returnDateInput {
-    margin-left: 1rem;
-    vertical-align: middle;
-  }
+#cabinCurrency {
+  margin: 0 auto;
+  width: 200px;
+}
 
-  .FlightsContainer{
-    border: 1px solid black;
-    margin-top: 10rem;
-  }
-  .row1 {
-    margin-bottom: 1rem;
-  }
+#passengerDiv {
+  margin: 8px;
+}
+
+#passengerDiv span {
+  margin: 5px;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+/*Dates */
+#departDateInput,
+#returnDateInput,
+.cabinBtn {
+  margin: 8px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.FlightsContainer{
+  /* border: 1px solid black; */
+  width: 650px!important;
+}
+
+.flightPrice {
+  margin-top: 50px;
+}
+.row1 {
+  margin-bottom: 1rem;
+}
+
+.bookBtn {
+  font-weight: bold;
+}
