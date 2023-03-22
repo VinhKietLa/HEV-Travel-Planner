@@ -1,4 +1,4 @@
-# MoodMix: A fusion of flavors and inspiration.
+# Travel Planner: Let us take you there
 
 ## Overview
 

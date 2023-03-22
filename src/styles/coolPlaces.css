@@ -1,5 +1,6 @@
 #info {
   margin: 45px;
+
   background-color: var(--accent);
   box-shadow: 0px 6px 6px 2px rgba(34, 27, 27, 0.549);
   width: 11%;
@@ -23,4 +24,10 @@ p {
 
 img {
   border: 5px solid black;
+
+}
+
+.card {
+  width: 800px;
+
 }
