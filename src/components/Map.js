@@ -120,14 +120,22 @@ function Map() {
         >
           {result}
         </h4>
+
         {/* <button
+
+        <button
+
           id="button-search"
           type="submit"
           className="btn btn-secondary"
           onClick={handleButtonClick}
         >
           Take me there!
+
         </button> */}
+
+        </button>
+
       </div>
 
       <div className="loc-search">
@@ -137,7 +145,10 @@ function Map() {
             type="search"
             placeholder="Region, city (e.g. London)"
             aria-describedby="button-search"
+
             className="form-control"
+
+
           />
           <div className="input-group-prepend border-0"></div>
         </form>
@@ -152,11 +163,15 @@ function Map() {
         </button>
       </div>
 
+
       {/* <div>
+
+      <div>
+
         <p>Latitude: {latitude}</p>
         <p>Longitude: {longitude}</p>
         <p>Nearest city: {result}</p>
-      </div> */}
+      </div>
     </div>
   ) : (
     <></>
