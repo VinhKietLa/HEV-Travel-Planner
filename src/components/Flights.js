@@ -169,46 +169,57 @@ function Flights() {
   };
 
   // Function creates the reactbootstrap cards, destructing and passing the object from the Flights API instead of using props e.g props.flight.airlineCodes.
-  function FlightCard({ flight }) {
+  function FlightCard({ flightData }) {
+    console.log(flightData);
+    // console.log(flightData.fares[0].handoffUrl);
+
     return (
       <>
- <Container className="FlightsContainer">
-         
-          <Row className="row1">
-            <Col className="DepartingAirport">
-              <div>{flight.departureAirport.code}</div>
-              <div>{flight.departureAirport.name}</div>
-              <div>{flight.outboundDate}</div>
-            </Col>
-            <Col>
-              <img src={airplane}></img>
-            </Col>
+        {flightData?.search && (
+          <Container className="FlightsContainer">
+            <Row className="row1">
+              <Col className="DepartingAirport">
+                <div>{flightData.search.legs[0].departureAirport.code}</div>
+                <div>{flightData.search.legs[0].departureAirport.name}</div>
+                <div>{flightData.search.legs[0].outboundDate}</div>
+              </Col>
+              <Col>
+                <img src={airplane} alt="airplane" />
+              </Col>
+              <Col className="ArrivalAirport">
+                <div>{flightData.search.legs[0].arrivalAirport.code}</div>
+                <div>{flightData.search.legs[0].arrivalAirport.name}</div>
+                <div>{flightData.search.legs[0].outboundDate}</div>
+              </Col>
+            </Row>
 
-            <Col className="ArrivalAirport">
-              <div>{flight.arrivalAirport.code}</div>
-              <div>{flight.arrivalAirport.name}</div>
-              <div>{flight.outboundDate}</div>
-            </Col>
-          </Row>
-
-          <Row className="row2">
-            <Col className="DepartingAirport1">
-              <div>NRT</div>
-              <div>NEW REGIOTREN AIRPORTT</div>
-              <div>{flight.outboundDate}</div>
-            </Col>
-            <Col>
-              {" "}
-              <img src={airplane}></img>
-            </Col>
-
-            <Col className="ArrivalAirport1">
-              <div>NRT</div>
-              <div>NEW REGIOTREN AIRPORT</div>
-              <div>{flight.outboundDate}</div>
-            </Col>
-          </Row>
-</Container>
+            <Row className="row2">
+              <Col className="DepartingAirport1">
+                <div>{flightData.search.legs[1].departureAirport.code}</div>
+                <div>{flightData.search.legs[1].departureAirport.name}</div>
+                <div>{flightData.search.legs[1].outboundDate}</div>
+              </Col>
+              <Col>
+                <img src={airplane} alt="airplane" />
+              </Col>
+              <Col className="ArrivalAirport1">
+                <div>{flightData.search.legs[1].arrivalAirport.code}</div>
+                <div>{flightData.search.legs[1].arrivalAirport.name}</div>
+                <div>{flightData.search.legs[1].outboundDate}</div>
+              </Col>
+            </Row>
+            <div>
+              <a
+                className="thumbnail"
+                href={flightData.fares[0].handoffUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book Now
+              </a>
+            </div>
+          </Container>
+        )}
       </>
     );
   }
@@ -256,7 +267,6 @@ function Flights() {
 
   // This fetches from the Flights API using the variable states from the completed form.
 
-
   const getTicketPrice = () => {
     // Fetching data and setting the state
     let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
@@ -265,7 +275,7 @@ function Flights() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        setFlightData(response.search.legs);
+        setFlightData(response);
       });
   };
 
@@ -305,7 +315,9 @@ function Flights() {
         <datalist id="cityToSuggestions">{apiFromCity}</datalist>
 
         {/*Departure date*/}
-        <label htmlFor="departDateInput" id="departDateInput">Depart:</label>
+        <label htmlFor="departDateInput" id="departDateInput">
+          Depart:
+        </label>
         <input
           type="date"
           id="departDateInput"
@@ -314,7 +326,9 @@ function Flights() {
         />
 
         {/*Return date*/}
-        <label htmlFor="returnDateInput" id="returnDateInput">Return:</label>
+        <label htmlFor="returnDateInput" id="returnDateInput">
+          Return:
+        </label>
         <input
           type="date"
           id="returnDateInput"
@@ -476,12 +490,9 @@ function Flights() {
 
         {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
         <div id="FlightResults ">
-          {flightData.map((flight) => (
-            <FlightCard key={flight.id} flight={flight} />
-          ))}
+          {flightData && <FlightCard flightData={flightData} />}
         </div>
       </div>
-
     </>
   );
 }

@@ -134,7 +134,7 @@ function Map() {
 
         </button> */}
 
-        </button>
+
 
       </div>
 
@@ -164,14 +164,13 @@ function Map() {
       </div>
 
 
-      {/* <div>
 
-      <div>
+      {/* <div>
 
         <p>Latitude: {latitude}</p>
         <p>Longitude: {longitude}</p>
         <p>Nearest city: {result}</p>
-      </div>
+      </div> */}
     </div>
   ) : (
     <></>
