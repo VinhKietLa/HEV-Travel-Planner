@@ -15,10 +15,8 @@
   display: block;
   margin: 8px;
   z-index: 1;
-  max-height: 70px;
+  max-height: 60px;
   width: 240px;
-  top: 39px;
-  right: 220px;
   overflow-y: auto; /* Add overflow-y to make the datalist scrollable */
   padding: 0;
   background-color: #fff;
@@ -45,6 +43,7 @@
 #cabinCurrency {
   margin: 0 auto;
   width: 200px;
+  
 }
 
 #passengerDiv {
@@ -59,11 +58,16 @@
   text-align: center;
 }
 
+#cabinStyle {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
 /*Dates */
 #departDateInput,
 #returnDateInput,
 .cabinBtn {
-  margin: 8px;
+  margin: 5px;
   height: 60px;
   display: flex;
   align-items: center;

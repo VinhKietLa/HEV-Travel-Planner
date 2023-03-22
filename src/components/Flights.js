@@ -343,7 +343,8 @@ if (alertTrigger) {
         {/* Cabin/Class Button */}
         <button
           type="button"
-          class="btn btn-primary ms-2 cabinBtn"
+          class="btn ms-2 cabinBtn"
+          id="cabinStyle"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
         >
@@ -491,7 +492,7 @@ if (alertTrigger) {
         {/* Form Submit Button */}
         <div id="liveAlertPlaceholder"></div>
         <button className="btn btn-secondary ms-2" id="liveAlertBtn" onClick={handleSubmit}>
-          Lets Fly!
+          SEARCH
         </button>
 
         {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
