@@ -7,32 +7,36 @@ import Col from "react-bootstrap/Col";
 
 import airplane from "./assets/airplane.svg";
 import { InputGroup } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlane } from "@fortawesome/free-solid-svg-icons";
 
 function Flights() {
-
-  const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 
   const alert = (message, type) => {
     // Clear any existing alerts
-    alertPlaceholder.innerHTML = '';
-  
-    const wrapper = document.createElement('div')
+    alertPlaceholder.innerHTML = "";
+
+    const wrapper = document.createElement("div");
     wrapper.innerHTML = [
       `<div class="alert alert-${type} alert-dismissible" role="alert">`,
       `   <div>${message}</div>`,
       '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-      '</div>'
-    ].join('')
-  
-    alertPlaceholder.append(wrapper)
-  }
+      "</div>",
+    ].join("");
 
-const alertTrigger = document.getElementById('liveAlertBtn')
-if (alertTrigger) {
-  alertTrigger.addEventListener('click', () => {
-    alert("We're fetching your flight price and it will appear below shortly.... ", 'success')
-  })
-}
+    alertPlaceholder.append(wrapper);
+  };
+
+  const alertTrigger = document.getElementById("liveAlertBtn");
+  if (alertTrigger) {
+    alertTrigger.addEventListener("click", () => {
+      alert(
+        "We're fetching your flight price and it will appear below shortly.... ",
+        "success"
+      );
+    });
+  }
   // From and To hooks
   const [fromCity, setFromCity] = useState("");
   const [apiFromCity, setApiFromCity] = useState("");
@@ -81,15 +85,15 @@ if (alertTrigger) {
           ));
           //Updating options elements/setting state
           const datalist = document.getElementById("cityFromSuggestions");
-      if (options.length === 0) {
-        // Hide the datalist by setting its display style to "none"
-        datalist.style.display = "none";
-        setFromCity("");
-      } else {
-        // Show the datalist by setting its display style to "block"
-        datalist.style.display = "block";
-        setFromCity(options);
-      }
+          if (options.length === 0) {
+            // Hide the datalist by setting its display style to "none"
+            datalist.style.display = "none";
+            setFromCity("");
+          } else {
+            // Show the datalist by setting its display style to "block"
+            datalist.style.display = "block";
+            setFromCity(options);
+          }
         });
     }
 
@@ -141,7 +145,8 @@ if (alertTrigger) {
             // Show the datalist by setting its display style to "block"
             datalist.style.display = "block";
             setApiFromCity(options);
-          }        });
+          }
+        });
     }
     // This function is called when an `option` element is clicked and sets the `apiFromCity` and `departureAirportIata`
 
@@ -290,7 +295,7 @@ if (alertTrigger) {
 
   return (
     <>
-      <div>
+      <div className="heading-div">
         <h1 className="heading">Fare Search </h1>
       </div>
 
@@ -301,6 +306,7 @@ if (alertTrigger) {
           id="cityFromInput"
           list="cityFromSuggestidons"
           placeholder="From"
+          style={{ backgroundColor: "#b8e0f6", border: "none" }}
         />
 
         {/*Generated options for change of state*/}
@@ -312,11 +318,11 @@ if (alertTrigger) {
           id="cityToInput"
           list="cityToInput"
           placeholder="To"
+          style={{ backgroundColor: "#b8e0f6", border: "none" }}
         />
 
         {/*Generated options for change of state*/}
         <datalist id="cityToSuggestions">{apiFromCity}</datalist>
-    
 
         {/*Departure date*/}
         <label htmlFor="departDateInput" id="departDateInput">
@@ -327,6 +333,7 @@ if (alertTrigger) {
           id="departDateInput"
           className="ms-2"
           onChange={handleDepartDateChange}
+          style={{ backgroundColor: "#b8e0f6", border: "none" }}
         />
 
         {/*Return date*/}
@@ -338,12 +345,13 @@ if (alertTrigger) {
           id="returnDateInput"
           className="ms-2"
           onChange={handleReturnDateChange}
+          style={{ backgroundColor: "#b8e0f6", border: "none" }}
         />
 
         {/* Cabin/Class Button */}
         <button
           type="button"
-          class="btn ms-2 cabinBtn"
+          class="btn btn-secondary ms-2 cabinBtn"
           id="cabinStyle"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
@@ -487,18 +495,29 @@ if (alertTrigger) {
             </div>
           </div>
         </div>
-        </InputGroup>
+      </InputGroup>
 
-        {/* Form Submit Button */}
-        <div id="liveAlertPlaceholder"></div>
-        <button className="btn btn-secondary ms-2" id="liveAlertBtn" onClick={handleSubmit}>
-          SEARCH
-        </button>
+      {/* Form Submit Button */}
+      <div id="liveAlertPlaceholder"></div>
+      <button
+        className="btn btn-secondary ms-2"
+        id="liveAlertBtn"
+        onClick={handleSubmit}
+      >
+        <FontAwesomeIcon
+          icon={faPlane}
+          style={{
+            height: "45px",
+            width: "45px",
+            color: "#a4cce3",
+          }}
+        />
+      </button>
 
-        {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
-        <div id="FlightResults ">
-          {flightData && <FlightCard flightData={flightData} />}
-        </div>
+      {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
+      <div id="FlightResults ">
+        {flightData && <FlightCard flightData={flightData} />}
+      </div>
     </>
   );
 }

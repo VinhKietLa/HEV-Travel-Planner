@@ -1,6 +1,20 @@
 .heading,
 #autoComplete {
-  color: black;
+  color: var(--font-color);
+}
+
+.input-group,
+.heading-div,
+.alert {
+  margin-left: 64px;
+}
+
+.alert {
+  width: 728px;
+}
+
+.heading-div {
+  margin-top: 64px;
 }
 
 #cityFromInput,
@@ -43,7 +57,6 @@
 #cabinCurrency {
   margin: 0 auto;
   width: 200px;
-  
 }
 
 #passengerDiv {
@@ -59,8 +72,9 @@
 }
 
 #cabinStyle {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  /* background-color: #fff; */
+  /* border: 1px solid #ddd; */
+  box-shadow: var(--drop-shadow);
 }
 
 /*Dates */
@@ -73,9 +87,9 @@
   align-items: center;
 }
 
-.FlightsContainer{
+.FlightsContainer {
   /* border: 1px solid black; */
-  width: 650px!important;
+  width: 650px !important;
 }
 
 .flightPrice {
@@ -87,4 +101,8 @@
 
 .bookBtn {
   font-weight: bold;
+}
+
+#liveAlertBtn {
+  box-shadow: var(--drop-shadow);
 }
