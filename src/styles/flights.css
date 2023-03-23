@@ -105,4 +105,5 @@
 
 #liveAlertBtn {
   box-shadow: var(--drop-shadow);
+  margin: 64px !important;
 }
