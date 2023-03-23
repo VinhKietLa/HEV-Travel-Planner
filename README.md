@@ -14,13 +14,14 @@ Our comprehensive database includes recommendations for activities that will mak
 
 So, whether you're a seasoned traveler or a first-time adventurer, discover Travel Planner today and start planning your next great escape!
 
-## Application Demo
-
-The following animation demonstrates the application functionality:
-
 ## Link to application
 
-[HEV Travel Planner](https://travelhev.netlify.app)
+[Live Demo](https://travelhev.netlify.app)
+
+
+Screenshot:
+![Screenshot of Application](src/components/assets/screenshotofapplication.png)
+
 
 ## Built with...
 
@@ -36,13 +37,20 @@ The following animation demonstrates the application functionality:
 
 ## What we learned
 
+- The importance of project scoping.
+- Outlining and establishing clear expectations for individual contributions. 
+- Reinforced
+
+
 ## Directions for future development
 
 Things for the future include:
 
 - Enabling functionality of searching places based on map marker location
 
-- Add accommodations and car rentals and real-time flight prices
+- Add accommodations and car rentals prices and search functionality.
+
+- More flight options, ability to filter results and show flight times as part of the search results.
 
 - Polish UI
 
@@ -55,6 +63,10 @@ Things for the future include:
 - [Google Map API](https://developers.google.com/maps/documentation/javascript/libraries-open-source)
 
 - [FlightAPI](https://www.flightapi.io/)
+
+- [AirLabs API](https://airlabs.co/)
+
+- [React Bootstrap](https://react-bootstrap.github.io/)
 
 ## Authors
 
