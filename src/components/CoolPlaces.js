@@ -1,3 +1,5 @@
+import { faRightLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import "../styles/coolPlaces.css";
 import { nextBtn, loadList } from "./otmLocationGet/location";
@@ -10,7 +12,7 @@ function CoolPlaces() {
 
   return (
     <>
-      <div id="info" className="alert alert-secondary"></div>
+      <div id="info" className="alert alert-secondary bg-secondary"></div>
 
       <div className="row justify-content-center">
         <div className="col-12 col-lg-8">
@@ -22,7 +24,15 @@ function CoolPlaces() {
               type="button"
               className="btn btn-secondary"
             >
-              Next
+              <FontAwesomeIcon
+                icon={faRightLong}
+                style={{
+                  height: "45px",
+                  width: "45px",
+                  color: "#a4cce3",
+                  border: "none",
+                }}
+              />
             </button>
           </nav>
         </div>

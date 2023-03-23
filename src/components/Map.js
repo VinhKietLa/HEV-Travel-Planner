@@ -8,13 +8,16 @@ import {
   locationFormsubmit,
   mapFormSubmit,
 } from "./otmLocationGet/location";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapLocation } from "@fortawesome/free-solid-svg-icons";
+import { FormControl } from "react-bootstrap";
 
 const containerStyle = {
   width: "90%",
   height: "50vh",
   margin: "0 auto",
   marginTop: "50px",
-  border: "5px solid #1a385a",
+  border: "3px solid #a4cce3",
   boxShadow: "0px 6px 6px 2px rgba(34, 27, 27, 0.549)",
 };
 
@@ -107,7 +110,7 @@ function Map() {
       </GoogleMap>
       <div className="loc-info">
         <h2>Pick a location on the map or enter your desired destination</h2>
-        <h3>Your Selected Destination:</h3>
+        <h4>Your Selected Destination:</h4>
         <h4
           className="map-loc"
           style={{
@@ -136,13 +139,16 @@ function Map() {
       </div>
 
       <div className="loc-search">
+        <h4>Where would you like to go?</h4>
+
         <form id="search-form" className="input-group mb-4 border p-1">
           <input
             id="textbox"
             type="search"
-            placeholder="Region, city (e.g. London)"
+            placeholder="City (e.g. London)"
             aria-describedby="button-search"
             className="form-control"
+            style={{ backgroundColor: "transparent", border: "none" }}
           />
           <div className="input-group-prepend border-0"></div>
         </form>
@@ -152,8 +158,14 @@ function Map() {
           type="submit"
           className="btn btn-secondary"
         >
-          {" "}
-          Take me there!
+          <FontAwesomeIcon
+            icon={faMapLocation}
+            style={{
+              height: "45px",
+              width: "45px",
+              color: "#a4cce3",
+            }}
+          />
         </button>
       </div>
 
