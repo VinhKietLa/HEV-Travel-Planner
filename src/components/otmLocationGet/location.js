@@ -110,7 +110,6 @@ export function loadList() {
       nextBtn.style.visibility = "hidden";
     } else {
       nextBtn.style.visibility = "visible";
-      nextBtn.innerText = `Next (${offset + pageLength} of ${count})`;
     }
   });
 }
