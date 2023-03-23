@@ -18,10 +18,8 @@ So, whether you're a seasoned traveler or a first-time adventurer, discover Trav
 
 [Live Demo](https://travelhev.netlify.app)
 
-
 Screenshot:
-![Screenshot of Application](src/components/assets/screenshotofapplication.png)
-
+![Screenshot of Application](src/components/assets/travel-planner.png)
 
 ## Built with...
 
@@ -37,10 +35,11 @@ Screenshot:
 
 ## What we learned
 
-- The importance of project scoping.
-- Outlining and establishing clear expectations for individual contributions. 
-- Reinforced
+- The importance of project scoping
 
+- Outlining and establishing clear expectations for individual contributions
+
+- Reinforced
 
 ## Directions for future development
 
