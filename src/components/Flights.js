@@ -6,8 +6,33 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import airplane from "./assets/airplane.svg";
+import { InputGroup } from "react-bootstrap";
 
 function Flights() {
+
+  const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+  const alert = (message, type) => {
+    // Clear any existing alerts
+    alertPlaceholder.innerHTML = '';
+  
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>'
+    ].join('')
+  
+    alertPlaceholder.append(wrapper)
+  }
+
+const alertTrigger = document.getElementById('liveAlertBtn')
+if (alertTrigger) {
+  alertTrigger.addEventListener('click', () => {
+    alert("We're fetching your flight price and it will appear below shortly.... ", 'success')
+  })
+}
   // From and To hooks
   const [fromCity, setFromCity] = useState("");
   const [apiFromCity, setApiFromCity] = useState("");
@@ -33,10 +58,12 @@ function Flights() {
     function handleFromInputChange(event) {
       const input = event.target.value;
       // Fetch city suggestions from Airlabs API
-      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&lang=en&api_key=11f9f1df-8234-4590-bcb9-1c6df28a39c5`;
+      console.log(input);
+      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&lang=en&api_key=a7a5c870-9957-4fe3-b15f-7dcef5b20df1`;
       fetch(queryURL)
         .then((response) => response.json())
         .then((response) => {
+          console.log(response);
           let cities = response.response.airports;
 
           // Clear existing suggestions
@@ -53,7 +80,16 @@ function Flights() {
             </option>
           ));
           //Updating options elements/setting state
-          setFromCity(options);
+          const datalist = document.getElementById("cityFromSuggestions");
+      if (options.length === 0) {
+        // Hide the datalist by setting its display style to "none"
+        datalist.style.display = "none";
+        setFromCity("");
+      } else {
+        // Show the datalist by setting its display style to "block"
+        datalist.style.display = "block";
+        setFromCity(options);
+      }
         });
     }
 
@@ -76,7 +112,7 @@ function Flights() {
     function handleToInputChange(event) {
       const input = event.target.value;
       // Fetch city suggestions To Airlabs API
-      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&lang=en&api_key=11f9f1df-8234-4590-bcb9-1c6df28a39c5`;
+      const queryURL = `https://airlabs.co/api/v9/suggest?q=${input}&lang=en&api_key=a7a5c870-9957-4fe3-b15f-7dcef5b20df1`;
       fetch(queryURL)
         .then((response) => response.json())
         .then((response) => {
@@ -96,8 +132,16 @@ function Flights() {
             </option>
           ));
           //Updating options element/setting state
-          setApiFromCity(options);
-        });
+          const datalist = document.getElementById("cityToSuggestions");
+          if (options.length === 0) {
+            // Hide the datalist by setting its display style to "none"
+            datalist.style.display = "none";
+            setApiFromCity("");
+          } else {
+            // Show the datalist by setting its display style to "block"
+            datalist.style.display = "block";
+            setApiFromCity(options);
+          }        });
     }
     // This function is called when an `option` element is clicked and sets the `apiFromCity` and `departureAirportIata`
 
@@ -184,7 +228,7 @@ function Flights() {
                 <div>{flightData.search.legs[0].outboundDate}</div>
               </Col>
               <Col>
-                <img src={airplane} alt="airplane" />
+                <img src={airplane} alt="airplane" className="flightPrice" />
               </Col>
               <Col className="ArrivalAirport">
                 <div>{flightData.search.legs[0].arrivalAirport.code}</div>
@@ -200,7 +244,7 @@ function Flights() {
                 <div>{flightData.search.legs[1].outboundDate}</div>
               </Col>
               <Col>
-                <img src={airplane} alt="airplane" />
+                <img src={airplane} alt="airplane" className="flightPrice" />
               </Col>
               <Col className="ArrivalAirport1">
                 <div>{flightData.search.legs[1].arrivalAirport.code}</div>
@@ -208,7 +252,7 @@ function Flights() {
                 <div>{flightData.search.legs[1].outboundDate}</div>
               </Col>
             </Row>
-            <div>
+            <div className="bookBtn">
               <a
                 className="thumbnail"
                 href={flightData.fares[0].handoffUrl}
@@ -224,52 +268,11 @@ function Flights() {
     );
   }
 
-  // function TestCard() {
-  //   return (
-  //     <>
-  //       <Container className="FlightsContainer">
-  //         <h2>Our Recommended Flight</h2>
-  //         <Row className="row1">
-  //           <Col className="DepartingAirport">
-  //             <div>{flight.departureAirport.code}</div>
-  //             <div>{flight.departureAirport.name}</div>
-  //           </Col>
-  //           <Col>
-  //             <img src={airplane}></img>
-  //           </Col>
-
-  //           <Col className="ArrivalAirport">
-  //             <div>{flight.arrivalAirport.code}</div>
-  //             <div>{flight.arrivalAirport.name}</div>
-  //           </Col>
-  //          <div>{flight.outboundDate}</div>
-  //         </Row>
-
-  //         <Row className="row2">
-  //           <Col className="DepartingAirport1">
-  //             <div>NRT</div>
-  //             <div>NEW REGIOTREN AIRPORTT</div>
-  //           </Col>
-  //           <Col>
-  //             {" "}
-  //             <img src={airplane}></img>
-  //           </Col>
-
-  //           <Col className="ArrivalAirport1">
-  //             <div>NRT</div>
-  //             <div>NEW REGIOTREN AIRPORT</div>
-  //           </Col>
-  //         </Row>
-  //       </Container>
-  //     </>
-  //   );
-  // }
-
   // This fetches from the Flights API using the variable states from the completed form.
 
   const getTicketPrice = () => {
     // Fetching data and setting the state
-    let queryURL = `https://api.flightapi.io/roundtrip/641210a9f75e113b1880490d/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
+    let queryURL = `https://api.flightapi.io/roundtrip/641b80fc018f8e4f9304927b/${fromCity}/${apiFromCity}/${departDate}/${returnDate}/${adults}/${children}/${infants}/${flightCabin}/${flightCurrency}`;
     console.log(queryURL);
     fetch(queryURL)
       .then((response) => response.json())
@@ -291,7 +294,7 @@ function Flights() {
         <h1 className="heading">Fare Search </h1>
       </div>
 
-      <div className="input-group">
+      <InputGroup>
         {/*From input field */}
         <input
           type="text"
@@ -313,6 +316,7 @@ function Flights() {
 
         {/*Generated options for change of state*/}
         <datalist id="cityToSuggestions">{apiFromCity}</datalist>
+    
 
         {/*Departure date*/}
         <label htmlFor="departDateInput" id="departDateInput">
@@ -339,7 +343,8 @@ function Flights() {
         {/* Cabin/Class Button */}
         <button
           type="button"
-          class="btn btn-primary ms-2"
+          class="btn ms-2 cabinBtn"
+          id="cabinStyle"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
         >
@@ -382,7 +387,7 @@ function Flights() {
               </div>
 
               {/* Currency Selection */}
-              <label htmlFor="cabinCurrency">Currency</label>
+              <label htmlFor="cabinCurrency">Currency:</label>
               <select
                 id="cabinCurrency"
                 value={flightCurrency}
@@ -482,17 +487,18 @@ function Flights() {
             </div>
           </div>
         </div>
+        </InputGroup>
 
         {/* Form Submit Button */}
-        <button className="btn btn-secondary ms-2" onClick={handleSubmit}>
-          Lets Fly!
+        <div id="liveAlertPlaceholder"></div>
+        <button className="btn btn-secondary ms-2" id="liveAlertBtn" onClick={handleSubmit}>
+          SEARCH
         </button>
 
         {/* Maps over the flightData aray created from the API response and creates a cards for each. */}
         <div id="FlightResults ">
           {flightData && <FlightCard flightData={flightData} />}
         </div>
-      </div>
     </>
   );
 }
