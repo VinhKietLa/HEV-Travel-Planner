@@ -133,9 +133,6 @@ function Map() {
           Take me there!
 
         </button> */}
-
-
-
       </div>
 
       <div className="loc-search">
@@ -145,10 +142,7 @@ function Map() {
             type="search"
             placeholder="Region, city (e.g. London)"
             aria-describedby="button-search"
-
             className="form-control"
-
-
           />
           <div className="input-group-prepend border-0"></div>
         </form>
@@ -162,8 +156,6 @@ function Map() {
           Take me there!
         </button>
       </div>
-
-
 
       {/* <div>
 
