@@ -14,11 +14,13 @@ But we don't just stop at flights - we also provide information on popular touri
 
 So, whether you're a seasoned traveler or a first-time adventurer, discover Travel Planner today and start planning your next great escape!
 
-## Application Screenshot
+## Application Home Page Screenshot
 
-![Screenshot of Application](src/components/assets/travel-planner.png)
+![Screenshot of Application](src/components/assets/travel-planner1.png)
 
 ## Link to application
+
+- Check the full functionality by accessing the app on the below link:
 
 [Travel Planner](https://travelhev.netlify.app)
 
