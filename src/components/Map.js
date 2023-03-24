@@ -22,8 +22,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 51.5074,
+  lng: -0.1278,
 };
 
 function Map() {
@@ -34,7 +34,7 @@ function Map() {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCY88CmnQtk_uHolo6N3JIOWHMAjhLt7ZE",
+    googleMapsApiKey: "AIzaSyDVKPP95DVeSebNWO0mWaEMhADQScLslbk",
   });
 
   const navigate = useNavigate();
