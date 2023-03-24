@@ -1,29 +1,33 @@
-.heading,
-#autoComplete {
+.heading-div {
+  margin-top: 64px;
+}
+
+.heading {
   color: var(--font-color);
 }
+
 
 .input-group,
 .heading-div,
 .alert {
   margin-left: 64px;
+  margin-right: 64px;
 }
 
 .alert {
+  margin-top: 1rem;
   width: 728px;
 }
 
-.heading-div {
-  margin-top: 64px;
-}
-
+/*Flight airport inputs */
 #cityFromInput,
 #cityToInput {
-  width: 350px;
+  width: 300px;
   height: 60px; /* Add a fixed height for the input element */
   margin: 0.5rem;
 }
 
+/*Flight airport option containers */
 #cityFromSuggestions,
 #cityToSuggestions {
   display: block;
@@ -38,6 +42,7 @@
   border-top: none;
 }
 
+/*Flight airport options */
 #cityFromSuggestions option,
 #cityToSuggestions option {
   padding: 8px 12px;
@@ -49,32 +54,10 @@
   cursor: pointer;
 }
 
+/*Options not showing as default*/
 #cityFromSuggestions,
 #cityToSuggestions {
   display: none;
-}
-
-#cabinCurrency {
-  margin: 0 auto;
-  width: 200px;
-}
-
-#passengerDiv {
-  margin: 8px;
-}
-
-#passengerDiv span {
-  margin: 5px;
-}
-
-.modal-content {
-  text-align: center;
-}
-
-#cabinStyle {
-  /* background-color: #fff; */
-  /* border: 1px solid #ddd; */
-  box-shadow: var(--drop-shadow);
 }
 
 /*Dates */
@@ -85,6 +68,33 @@
   height: 60px;
   display: flex;
   align-items: center;
+}
+
+/*Currency container*/
+
+#cabinCurrency {
+  margin: 0 auto;
+  width: 200px;
+}
+
+/*Passenger container*/
+
+#passengerDiv {
+  margin: 8px;
+}
+
+#passengerDiv span {
+  margin: 5px;
+}
+
+/*Currency + passenger modal container*/
+
+.modal-content {
+  text-align: center;
+}
+
+#cabinStyle {
+  box-shadow: var(--drop-shadow);
 }
 
 .FlightsContainer {

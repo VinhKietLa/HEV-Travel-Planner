@@ -390,7 +390,7 @@ function Flights() {
                 >
                   <option value="Economy">Economy</option>
                   <option value="Business">Business</option>
-                  <option value="First">First className</option>
+                  <option value="First">First Class</option>
                 </select>
               </div>
 
